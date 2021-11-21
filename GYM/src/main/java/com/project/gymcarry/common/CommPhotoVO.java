@@ -1,12 +1,10 @@
 package com.project.gymcarry.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.gymcarry.member.MemberVO;
 
-@Component
 public class CommPhotoVO {
 	
 	@Autowired

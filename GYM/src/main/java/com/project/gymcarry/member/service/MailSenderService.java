@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.gymcarry.carry.service.carrySha256;
 import com.project.gymcarry.common.SHA256;
-import com.project.gymcarry.dao.MemberDAO;
+import com.project.gymcarry.dao.MemberDao;
 import com.project.gymcarry.find.TempPWD;
 
 @Service
@@ -29,7 +29,7 @@ public class MailSenderService {
 	private JavaMailSender sender;
 	@Autowired
 	private SqlSessionTemplate template;
-	private MemberDAO dao;
+	private MemberDao dao;
 
 	// 인증키 생성
 	public String create_joinkey(int size) {
@@ -55,7 +55,7 @@ public class MailSenderService {
 	public String send_mail(String mememail, String memname) {
 
 		String joinkey = getJoinkey(false, 8);
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		dao.GetJoinkey(mememail, joinkey);
 
 		MimeMessage message = sender.createMimeMessage();
@@ -106,7 +106,7 @@ public class MailSenderService {
 	public String crsend_mail(String cremail, String crname) {
 
 		String joinkey = getJoinkey(false, 8);
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		dao.cr_GetJoinkey(cremail, joinkey);
 
 		MimeMessage message = sender.createMimeMessage();
@@ -209,7 +209,7 @@ public class MailSenderService {
 		// 비밀번호 암호화해주는 메서드
 		tempPWD = SHA256.encrypt(tempPWD);
 		// 데이터 베이스 값은 암호한 값으로 저장시킨다.
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		dao.setpassword(tempPWD, memname, mememail);
 	}
 	
@@ -238,7 +238,7 @@ public class MailSenderService {
 			// 비밀번호 암호화해주는 메서드
 			tempPWD = carrySha256.encrypt(tempPWD);
 			// 데이터 베이스 값은 암호한 값으로 저장시킨다.
-			dao = template.getMapper(MemberDAO.class);
+			dao = template.getMapper(MemberDao.class);
 			dao.setCarrypassword(tempPWD, crname, cremail);
 		}
 	
@@ -248,7 +248,7 @@ public class MailSenderService {
 	public int alterjoinkey_service(String mememail, String joinkey) {
 		int resultCnt = 0;
 
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		resultCnt = dao.alterjoinkey(mememail, joinkey);
 
 		return resultCnt;
@@ -257,7 +257,7 @@ public class MailSenderService {
 	public int cr_alterjoinkey_service(String cremail, String joinkey) {
 		int resultCnt = 0;
 
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		resultCnt = dao.cr_alterjoinkey(cremail, joinkey);
 
 		return resultCnt;

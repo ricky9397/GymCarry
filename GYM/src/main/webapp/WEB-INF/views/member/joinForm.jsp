@@ -19,7 +19,6 @@
 	<!-- Contents -->
 	<div class="wrap wd668">
 		<div class="container">
-			<%-- <form id="joinForm" action="<c:url value="/member/join"/>" method="post" enctype="multipart/form-data"> --%>
 			<form id="joinForm">
 				<div class="form_txtInput">
 					<h1 class="sub_tit_txt">회원 회원가입</h1>
@@ -116,7 +115,7 @@
 					<div id="btnbox">
 						<div class="btn_wrap">
 							<!-- 회원가입 -> DB 저장 // 취소 -> 취소되었습니다! 알림 후 index 수정하기 -->
-							<input type="submit" id="joinsubmit" value="회원가입">
+							<button type="submit" id="joinsubmit">회원가입</button>
 						</div>
 						<div class="btn_wrap2">
 							<a href="javascript:history.back()">취소</a>
@@ -135,25 +134,32 @@
 
 
 <script>
-	
-	$('#joinsubmit').click(function(){
-		
-		var formAction = $("form[name=testForm]").serialize();
-		
+	$('#joinsubmit').on('click', function(event){
+		/* 이벤트막음 */
+		event.preventDefault();   
+		var form = $('#joinForm')[0];
+		console.log(form);
+		var data = new FormData(form);
+		console.log(data);
+		// 회원가입 From Action 데이타
 		$.ajax({
 			type : 'POST',
 			enctype: 'multipart/form-data',
-			url : '<c:url value="member/join"/>',
+			url : '<c:url value="/member/join"/>',
 			dataType : 'json',
-			data : formAction,
-			success : function(data){
-				if(data == 0){
+			data : data,
+			processData: false,    
+	        contentType: false,      
+	        cache: false,
+			success : function(e){
+				console.log(e);
+				/* if(e == 0){
 					alert('회원가입 실패 했습니다.');	
-				} else if(data == 1){
+				} else if(e == 1){
 					alert('회원가입 완료 되었습니다.');
 				} else {
 					
-				}
+				} */
 				
 			}
 		});
@@ -183,8 +189,6 @@
 
 	// 이름, 이메일, 비밀번호, 비밀번호 확인, 닉네임, 휴대폰 번호, 생일, 성별 순
 	
-	// 이름에 특수문자 들어가지 않도록 설정
-	console.log('이름 도달');
 	// 이름 정규식 : 영어, 한글로만 2~6글자 이내 
 	var nameJ = /^[가-힣a-zA-Z]{2,6}$/;
 	$("#memname").focusout(function() {
@@ -198,8 +202,7 @@
 		error : console.log('이름 실패');
 	});
 	
-	// 이메일 -> DB다녀와야함 
-	console.log('이메일 도달');
+	
 	// 이메일 검사 정규식 : 이메일 형식(ㅇㅇㅇ@ㅇㅇㅇ.ㅇㅇ)
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	$("#mememail").focusout(function() {
@@ -235,8 +238,6 @@
 	});
 	
 	
-	// 비밀번호 
-	console.log('비번 도달');
 	// 비밀번호 정규식 : 영어 대소문자, 숫자로 4~15글자 이내 
 	var pwJ = /^[A-Za-z0-9]{4,15}$/;
 	$("#mempw").focusout(function() {

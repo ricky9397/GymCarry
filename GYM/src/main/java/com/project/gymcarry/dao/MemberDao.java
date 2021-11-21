@@ -8,7 +8,7 @@ import com.project.gymcarry.member.MemberDto;
 import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.SessionDto;
 
-public interface MemberDAO {
+public interface MemberDao {
 
 	// 멤버 로그인
 	SessionDto memberLogin(String id, String pw);

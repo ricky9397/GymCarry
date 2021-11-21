@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.gymcarry.carry.CarryJoinDto;
 import com.project.gymcarry.carry.CarryToJoinDto;
 import com.project.gymcarry.common.CommPhotoVO;
-import com.project.gymcarry.dao.MemberDAO;
+import com.project.gymcarry.dao.MemberDao;
 import com.project.gymcarry.member.MemberDto;
 import com.project.gymcarry.member.MemberVO;
 
@@ -23,48 +23,48 @@ public class MemberJoinServiceImpl implements MemberService {
 	@Autowired
 	private SqlSessionTemplate template;
 
-	private MemberDAO dao;
+	private MemberDao dao;
 
 	// 멤버 이메일 중복 검사
 	public int memberemailCheck(String mememail) throws Exception {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		return dao.memberemailCheck(mememail);
 	}
 
 	// 멤버 닉네임 중복 검사
 	public int memberNickCheck(String memNick) {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		return dao.memberNickCheck(memNick);
 	}
 
 	// 멤버 핸드폰번호 중복 검사
 	public int memberPhoneCheck(String memphone) {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		return dao.memberPhoneCheck(memphone);
 	}
 
 	// 캐리 이메일 중복 검사
 	public int carryemailCheck(String cremail) throws Exception {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		return dao.carryemailCheck(cremail);
 	}
 
 	// 캐리 닉네임 중복 검사
 	public int carryNickCheck(String crNick) throws Exception {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		return dao.carryNickCheck(crNick);
 	}
 
 	// 캐리 핸드폰번호 중복 검사
 	public int carryPhoneCheck(String crphone) {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		return dao.carryPhoneCheck(crphone);
 	}
 
 	// 캐리 회원가입
 	public int carryJoin(CarryToJoinDto carryToJoinDto, HttpServletResponse response, HttpServletRequest request)
 			throws Exception {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 
 		File newFile = null;
 		CarryJoinDto carryJoinDto = carryToJoinDto.getCarryJoinDto();
@@ -123,7 +123,7 @@ public class MemberJoinServiceImpl implements MemberService {
 	/** insert 회원가입 & 사진업로드 */
 	@Override
 	public int insertMemberJoin(MemberVO member, CommPhotoVO memPhoto, HttpServletRequest request) throws Exception {
-		dao = template.getMapper(MemberDAO.class);
+		dao = template.getMapper(MemberDao.class);
 		
 		File newFile = null;
 		

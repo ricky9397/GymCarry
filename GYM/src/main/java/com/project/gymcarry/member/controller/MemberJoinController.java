@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.gymcarry.common.CommPhotoVO;
@@ -33,9 +34,9 @@ public class MemberJoinController {
 	}
 	
 	
-	@ResponseBody
 	@PostMapping("member/join")
-	public String memberJoin(MemberVO member,CommPhotoVO memPhoto, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@ResponseBody
+	public int memberJoin(MemberVO member, @RequestParam("memPhoto") CommPhotoVO memPhoto, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// 비밀번호 암호화(SHA256)
 		String encryPassword = SHA256.encrypt(member.getMemPw());
@@ -47,7 +48,7 @@ public class MemberJoinController {
 		// 인증메일 보내기 메소드
 		//String result2 = mailsenderservice.send_mail(member.getMemEmail(), memberDto.getMemname());
 		
-		return "redirect:/index";
+		return result;
 	}
 	
 //	@RequestMapping(value = "member/join/alterjoinkey", method = RequestMethod.POST)
