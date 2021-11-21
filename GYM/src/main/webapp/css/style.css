@@ -1,0 +1,230 @@
+/* 폰트 설정 */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+
+/* 기본 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.wrap {
+  position: relative;
+  background: #fff;
+}
+
+.container_fix {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  margin-top: 80px;
+}
+
+.page_title {
+  margin:200px 0 150px;
+  text-align:center;
+}
+
+/* scroll */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-button { width: 0;height: 0;}
+::-webkit-scrollbar-track {   background:none; }
+::-webkit-scrollbar-thumb {  background: rgba(0,0,0,0.7); border-radius: 3px; }
+
+/* Header */
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80px;
+  line-height: 80px;
+  display: flex;
+  padding: 0 50px;
+  box-shadow: 0px 2px 5px rgb(13 12 41 / 12%);
+  z-index: 99;
+  background: #fff;
+}
+.header .logo {
+  width: 150px;
+}
+.header .logo a {
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-size: 26px;
+  font-weight: 600;
+}
+.header .nav {
+  width: calc(100% - 300px);
+}
+.header .nav ul {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.header .nav ul li {
+  width: 150px;
+  text-align: center;
+}
+.header .nav ul li a {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.header .nav ul li a:hover {
+	color: #8b949c;
+	transition: 0.2s;
+}
+
+.header .sub_nav {
+  width: 150px;
+}
+
+.header .sub_nav .chatting {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 100%;
+  cursor: pointer;
+}
+.header .sub_nav .chatting img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.header .sub_nav .login {
+  float: left;
+  width: 50%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Header End */
+
+/* Footer */
+.footer * {
+  color: #777;
+}
+
+.footer {
+  border-top: 1px solid #333;
+  margin-top: 150px;
+  background: #000;
+}
+.footer .footer_nav {
+  height: 45px;
+  line-height: 45px;
+}
+.footer .footer_nav > .container_fix {
+  display: flex;
+  justify-content: space-between;
+}
+.footer .footer_nav .footer_menu {
+  display: flex;
+  justify-content: center;
+}
+.footer .footer_nav .footer_menu li {
+  padding: 0 20px;
+}
+.footer .footer_nav .footer_menu li a {
+  font-size: 13px;
+  font-weight: 600;
+}
+.footer .footer_nav .sns {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+.footer .footer_nav .sns > a {
+  display: block;
+  width: 25px;
+  height: 100%;
+  position: relative;
+}
+.footer .footer_nav .sns > .facebook {
+  margin-left: 20px;
+}
+
+.footer .footer_nav .sns > a img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.footer .footer_content {
+  border-top: 1px solid #555;
+  padding: 40px 0;
+}
+
+.footer .footer_content .container_fix {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer .footer_content .company_info .company_name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.footer .footer_content .company_info ul {
+  clear: both;
+  margin: 5px 0;
+}
+.footer .footer_content .company_info ul li {
+  display: inline-block;
+  font-size: 12px;
+}
+.footer .footer_content .company_info ul li + li {
+  margin-left: 10px;
+}
+.footer .footer_content .sevice_center h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.footer .footer_content .sevice_center p {
+  font-size: 14px;
+}
+
+.footer .top_btn {
+	position:fixed;
+	bottom:30px;
+	right:30px;
+	background:rgba(0,0,0,0.6);
+	width:40px;
+	height:40px;
+	border-radius:50%;
+	cursor:pointer;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.footer .top_btn > img {
+	width:16px;
+	height:16px;
+}
+
+.admin_page {
+	float: right;
+	text-decoration: underline;
+	font-size:15px;
+}

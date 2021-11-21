@@ -1,0 +1,96 @@
+.place_image {
+    width:100%;
+    height:320px;
+}
+.place_image ul {
+    height:100%;
+}
+.place_image ul li {
+    height:100%;
+    width:16.6666%!important;
+}
+.place_image img {
+    width:100%;
+    height:100%;
+}
+
+.place_info {
+    display: flex;
+    margin-top:100px;
+    max-width:1000px;
+    position: relative;
+}
+.place_info_content {
+    width:calc(100% - 330px);
+    padding-right:100px
+}
+.place_info_content .place_name {
+    font-size:32px;
+    margin-bottom:30px;
+} 
+
+.place_info_content h3 {
+    font-size:22px;
+    margin:70px 0 20px;
+}
+
+.place_info_content p {
+    line-height: 1.6;
+    word-break: keep-all;
+    white-space: pre-line;
+}
+
+
+.place_info_content .place_address > p {
+    margin-top:5px;
+}
+
+.place_info_content .place_time ul li {
+    margin:5px 0;
+}
+
+.place_info_content .place_time ul li span {
+    font-weight:600;
+    width:70px;
+    display:inline-block;
+}
+
+.place_info_content .place_parking ul li {
+    list-style: circle;
+    margin-left:20px;
+    margin-bottom:7px;
+}
+
+
+
+
+/*place_detail right_menu*/
+
+.place_banner {
+    width:330px;
+    padding:25px;
+    height:360px;
+    border-radius: 10px;
+    box-shadow: 1px 4px 16px 5px rgb(18 32 41 / 22%);
+    position:absolute;
+    right:0;
+}
+.place_banner > img { 
+    width:100%;
+    height:200px;
+    border-radius: 7px;
+	object-fit: cover;
+}
+.place_banner .place_name {
+    font-size: 18px;
+    text-align:center;
+    margin-top:15px;
+}
+.place_banner .place_tel {
+    text-align:center;
+    margin-top:20px;
+    padding:10px 0;
+    background:#000;
+    color:#fff;
+    border-radius: 5px;
+}

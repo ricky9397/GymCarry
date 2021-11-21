@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.CommentDao">
+
+	<!-- 댓글조회 -->
+	<select id="selectCommList" resultType="com.project.gymcarry.board.comment.CommentDto">
+		select *, (select memphoto from member m where m.memnick = boardcomment.COMMENTNICK) as memphoto 
+		from boardcomment
+		where postidx = #{postidx} 
+		ORDER BY commentidx DESC;
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="insertCommList">
+		insert into boardcomment (postidx,commentnick, commentcontent)
+		values ( #{postidx}, #{commentnick}, #{commentcontent});
+	</insert>
+	
+
+
+</mapper>

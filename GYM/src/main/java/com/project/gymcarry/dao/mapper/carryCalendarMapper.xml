@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.MypageDao">
+   
+   <insert id="carrycalendar" parameterType="java.util.List">
+   		insert ignore into carrycalendar(title, allday, start, end, cridx) 
+   		values
+   		 <foreach collection="list" item="item" separator=",">
+            (#{item.title}, #{item.allday}, #{item.start}, #{item.end}, #{item.cridx})
+        </foreach>
+   </insert>
+   
+   <select id="scheduleview" resultType="com.project.gymcarry.carry.CarryMypageDto">
+   		select distinct title, start, end
+   		from carrycalendar 
+   		where cridx = #{cridx} 
+   </select>
+
+	<delete id="deleteschedule">
+		delete from carrycalendar where cridx = #{cridx}
+	</delete>
+	
+</mapper>

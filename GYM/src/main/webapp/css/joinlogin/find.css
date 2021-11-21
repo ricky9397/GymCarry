@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: auto;
+}
+
+body {
+	background:#f7f7f7
+}
+
+table, tr, td, th, div, p, em, ol, ul, li, dl, dt, dd, a, address, img,
+	h2, h3, h5, h6 {
+	text-decoration: none;
+}
+
+.form_txtInput {
+	padding: 20px;
+}
+
+h1 {
+	text-align: center;
+	padding: 0 0 0 0px;
+}
+
+.wrap {
+	width: 40%;
+	box-shadow: 0 0 3em rgba(0, 0, 0, 0.15);
+	margin: auto auto 100px;
+}
+
+.wrap.wd668 {
+	width: 40%;
+	min-width: 40%;
+	text-align: center;
+	border-radius:5px;
+	overflow:hidden;
+}
+
+.container {
+	width: 100%;
+	padding:150px 0 10px;
+}
+
+.sub_tit_txt {
+	color: #2f2f2f;
+	font-size: 16px;
+}
+
+#btnbox {	
+	display: flex;
+	width: fit-content;
+	justify-content: center;
+	text-align: center;
+	margin: auto auto 20px;
+}
+
+.btn_wrap2 {
+	display: inline-block;
+	 width: fit-content;
+	text-align: center;
+	margin: 30px 10px;
+}
+
+#findview{
+	margin-top : 10px;
+	margin-bottom : 30px;
+}
+
+#findBtn.wide, .btn_wrap2 a.wide {
+	width: 70px;
+	margin: 0 15px;
+}
+
+button#loginBtn{
+	border: 0;
+    color: #fff; 
+    background-color: #4380ce; 
+    font-weight: bold; 
+    height: 40px; 
+    line-height: 40px; 
+    width: 130px; 
+    display: inline-block; 
+    text-align: center;
+    margin: 0 auto;
+    }
+    
+button#loginBtn:hover{
+    background: #0094ff;
+    color: #fff;
+    }
+    
+#findBtn {
+	border: 0;
+	color: #fff;
+	background-color: #4380ce;
+	height: 40px;
+	line-height: 40px;
+	width: 130px;
+	display: inline-block;
+	text-align: center;
+	margin: 30px 10px;
+	cursor:pointer;
+	font-size:14px;
+}
+
+.btn_wrap2 a {
+	color: #fff;
+	background-color: #ccc;
+	height: 40px;
+	line-height: 40px;
+	width: 130px;
+	display: inline-block;
+	text-align: center;
+	margin: 0 auto;
+	cursor:pointer;
+	font-size:14px;
+}
+
+#findBtn:hover {
+	background: #0094ff;
+	color: #fff;
+}
+
+.btn_wrap2 a:hover {
+	background: #bbb;
+	color: #fff;
+}
+
+.find_form {
+	width: 100%;
+}
+
+.find_form table {
+	border-spacing: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+}
+
+.find_form table td {
+	width: 100%;
+	display: inline-block;
+	padding: 10px 0;
+	position: relative;
+}
+
+.find_form table input {
+	border: 1px solid #ececec;
+	font-size: 14px;
+	color: #4c4c4c;
+	height: 40px;
+	padding: 10px;
+	width: 100%;
+	float: left;
+}
+
+.find_form p {
+	text-align: left;
+	font-size: 12px;
+	font-weight: lighter;
+	margin-top: 5px;
+	color: #ccc;
+}
+
+.find_form table #btnbox {
+	display: inline-flex;
+}
+
+.tab {
+	display: flex;
+	width: 100%;
+	padding: 0;
+}
+
+.tab>li {
+	width: 50%;
+	height: 60px;
+	margin-bottom: 15px;
+}
+
+.tab>li>a {
+	height: 60px;
+	line-height: 60px;
+	display: block;
+	text-decoration: none;
+	color: #000;
+	background: #fff;
+	cursor: pointer;
+	transition:0.2s;
+	box-shadow:0px 2px 5px rgb(13 12 41 / 12%);
+}
+
+.tab>li>a:hover {
+	background: #f1f1f1;
+}
+
+.tab>li.active>a {
+	cursor: default;
+	background-color: #000;
+	color: #fff;
+}

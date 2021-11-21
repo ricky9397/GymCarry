@@ -1,0 +1,307 @@
+@charset "utf-8";
+
+
+table, tr, td, th, div, p, em, ol, ul, li, dl, dt, dd, a, address, img, h2, h3, h4, h5, h6 {
+    font-size:11pt; 
+    color:#666;
+    text-decoration: none;
+}
+
+.sub_tit_txt{
+    margin:20px; 
+    color: #2f2f2f; 
+    font-size: 28px;
+}
+
+img {
+    border:0; 
+}
+
+.form_txtInput{
+    padding: 20px;
+    min-width: 473px;
+}
+
+/*캐리 프로필 영역*/
+h1 {
+    text-align: center;
+    padding:0 0 0 0px;
+}
+
+.profile_form{
+    margin-bottom: 20px;
+    justify-content: center;
+    display: grid;
+}
+
+.profile_form .profile_photo {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
+.profile_form .profile_photo img {
+	width:100%;
+	height:100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.profile_form input {
+	width: 120px;
+	height: 40px;
+    background-color: white;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 7px;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: 0.2s;
+    margin:15px auto 0;
+}
+.profile_form input:hover {
+	cursor: pointer;
+    border: 1px solid #333;
+    background: #333;
+    color: #fff;
+}
+.wrap{
+    width: 50%;
+    height: auto;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.15);
+    max-width:960px; 
+    margin: 140px auto 0;
+    min-width: 473px;
+    text-align: center;
+}
+
+.container{
+    width:100%;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.place{
+    position: relative;
+    margin: 0 auto;
+}
+
+.place>button{
+    height: 40px;
+    position:absolute;
+    top:50%;
+    right:0px;
+    transform: translateY(10%);
+    border:none;
+    width:60px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+
+.place>button:hover{
+    cursor: pointer;
+}
+
+
+#btnbox{
+    width: fit-content;
+    justify-content: center;
+    text-align: center;
+    margin: 30px auto 20px;
+}
+
+.btn_wrap, .btn_wrap2 {
+    display: inline-block;
+    width: fit-content;
+    text-align:center;
+    margin: 30px 5px;
+}
+.btn_wrap input {
+	border: 0;
+    color: #fff; 
+    background-color: #4380ce; 
+    height: 40px; 
+    line-height: 40px; 
+    width: 130px; 
+    display: inline-block; 
+    text-align: center;
+    margin: 0 auto;
+    font-size:14px;
+    cursor:pointer;
+}
+.btn_wrap input:hover {
+	background: #0094ff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn_wrap .wide, .btn_wrap2 a.wide{
+    width: 70px;
+    margin: 0 15px;}
+
+.btn_update {
+    color: #fff; 
+    background-color: #4380ce; 
+    height: 40px; 
+    line-height: 40px; 
+    width: 130px; 
+    display: inline-block; 
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
+    border: none;
+    font-size:14px;
+}
+
+.btn_wrap2 a{
+    color: #fff; 
+    background-color: #ccc; 
+    height: 40px; 
+    line-height: 40px; 
+    width: 130px; 
+    display: inline-block; 
+    text-align: center;
+    margin: 0 auto;
+    font-size:14px;
+}
+
+.btn_update:hover{
+    background: #0094ff;
+    color: #fff;
+}
+
+.btn_wrap2 a:hover{
+    background: #bbb;
+    color: #fff;
+}
+
+
+.edit_form{
+    width:100%;
+}
+
+.edit_form table {
+    border-spacing: 0;
+    margin:0;
+    padding:0; 
+    border:0;
+    width:100%;
+}
+
+
+.edit_form table th span{
+    color:#404040;
+    font-size:14px; 
+    display:inline-block; 
+    position:relative;
+    padding:0 10px 0 0; 
+    text-indent:20px;}
+
+.edit_form table td{
+    padding:6px 0;
+    position: relative;
+}
+.edit_form table td.check {
+}
+
+.edit_form table input, textarea{
+    border:1px solid #ececec;
+    font-size:14px;
+    color:#4c4c4c; 
+    height:40px; 
+    margin: 5px auto;
+    padding:10px; 
+    width:500px;
+}
+
+
+.edit_form table textarea {
+    height: 150px;
+    resize: none
+}
+
+.edit_form p{
+    text-align:left;
+    font-size: 12px;
+    font-weight: lighter;
+    margin-top: 5px;
+    color: #8a8a8a;
+}
+
+.edit_form table #btnbox{
+    display: inline-flex;
+}
+/* 
+.edit_form table input[type="text"] #introduce{
+ 자바스크립트로 변경
+} */
+
+.edit_form table input[type="radio"]{
+    width: fit-content;
+    height: 20px;
+    flex-wrap: nowrap;
+    margin:0 10px;
+}
+
+.edit_form table input[type="checkbox"]{
+    height: 20px;
+    flex-wrap: nowrap;
+    justify-content : center;
+}
+
+.edit_form table input.email{
+    width:100%; 
+    display: inline-block;
+}
+
+.selectbox{
+   	display: flex;
+    justify-content: flex-start;
+    flex-flow: wrap;
+
+}
+
+.selectbox>label {
+    margin: 5px 0;
+    width: 130px;
+    text-align: left;
+}
+.form {
+    margin-left: 10px;
+}
+.select_img {
+	margin:30px 0;
+}
+
+#crbfphoto {
+	padding:7px 0;
+}
+
+.bodyprofile_photo img{
+    margin-top: 20px;
+    width: 500px;
+    height: 600px;
+    object-fit: cover;
+}
+#ui-id-1.ui-widget-content {
+	border-radius: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 200px;
+    width: 497px;
+}
+
+#ui-id-1.ui-widget-content span {
+	display: block;
+    padding: 10px 20px;
+    border:none;
+    text-align:left;
+}
+#ui-id-1.ui-widget-content span:selected {
+	background:red;
+}
+.ui-state-hover,
+.ui-state-active,
+.ui-state-focus {
+	background:#f5f5f5;
+}

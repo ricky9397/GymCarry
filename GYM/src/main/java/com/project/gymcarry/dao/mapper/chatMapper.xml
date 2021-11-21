@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.MatchingDao">
+
+	<!-- 캐리 대화방 메세지 -->
+	<select id="selectChattingList"
+		resultType="com.project.gymcarry.chatting.ChatRoomDto">
+		select *
+		from chatlist l
+		left outer join chatroom r on
+		l.chatidx=r.chatidx
+		where l.chatidx=#{chatidx};
+	</select>
+	
+	<!-- 멤버 대화방 메세지 + like -->
+	<select id="selectMemberMessageList"
+		resultType="com.project.gymcarry.chatting.ChatRoomDto">
+        select *
+		from chatlist l
+		left outer join chatroom r on l.chatidx=r.chatidx 
+		and l.outdate <![CDATA[ < ]]> r.chatdate 
+		left outer join likelist k on k.memidx=l.memidx and
+		k.cridx=l.cridx
+		where l.chatidx=#{chatidx} ;
+	</select>
+
+	<!-- 멤버 채팅방  리스트 -->
+	<select id="selectChatList"
+		resultType="com.project.gymcarry.chatting.ChatListDto">
+		select l.chatidx, l.outcount, l.outdate, r.chatcontent, r.chatdate, c.cridx, c.crnick, p.placename,
+		m.memidx, m.memnick, r.chatread, c.crphoto
+		from member m
+		join chatlist l on l.memidx=m.memidx
+		join carry c on l.cridx=c.cridx
+		join place p on p.placeidx=c.placeidx and m.memidx=#{memidx}
+		left outer join chatroom r on l.chatidx=r.chatidx
+		and r.messageidx=(SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx=l.chatidx)
+	</select>
+
+	<!-- 캐리 채팅방 리스트 -->
+	<select id="selectCarryChatList"
+		resultType="com.project.gymcarry.chatting.ChatListDto">
+		select l.chatidx, l.outcount, l.outdate, r.chatcontent, r.chatdate, c.cridx, c.crnick, p.placename,
+		m.memidx, m.memnick, r.chatread, m.memphoto
+		from member m
+		join chatlist l on l.memidx=m.memidx
+		join carry c on l.cridx=c.cridx
+		join place p on p.placeidx=c.placeidx and c.cridx=#{cridx}
+		left outer join chatroom r on l.chatidx=r.chatidx 
+		and r.messageidx=(SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx=l.chatidx)
+	</select>
+
+	<!-- 채팅룸 생성 -->
+	<insert id="insertAddChatRoom"
+		parameterType="com.project.gymcarry.chatting.ChatListDto"
+		useGeneratedKeys="true">
+		insert into chatlist(cridx, memidx)
+		value(#{cridx}, #{memidx})
+	</insert>
+
+	<!-- 사용자 채팅방 가져오기 -->
+	<select id="selectByChatRoom"
+		resultType="com.project.gymcarry.chatting.ChatListDto">
+		select * from chatlist where cridx=#{cridx} and
+		memidx=#{memidx};
+	</select>
+
+	<!-- 채팅방 중복,찾기 -->
+	<select id="selectByChatIdx" resultType="int">
+		select count(*) from
+		chatlist where chatidx=#{param}
+	</select>
+
+	<!-- 대화내용 저장 -->
+	<insert id="insertChatContent"
+		parameterType="com.project.gymcarry.chatting.MessageDto"
+		useGeneratedKeys="true">
+		insert into chatroom (chatidx, chatcontent, cridx,
+		memidx, contenttype, chatread)
+		values
+		(#{chatidx},#{chatcontent},#{cridx},#{memidx},#{contenttype},
+		#{chatread})
+	</insert>
+
+	<!-- 메세지 읽음 안읽음 -->
+	<update id="updateChatRead"
+		parameterType="com.project.gymcarry.chatting.ChatRoomDto">
+		update chatroom set chatread=2 where chatidx=#{param1}
+	</update>
+
+	<!-- 하트체크 -->
+	<select id="selectLike"
+		resultType="com.project.gymcarry.carrylike.CarryLikeDto">
+		select *
+		from likelist
+		where memidx=#{param1} and
+		cridx=#{param2}
+	</select>
+
+	<!-- 하트최초생성 -->
+	<insert id="insertLike"
+		parameterType="com.project.gymcarry.carrylike.CarryLikeDto"
+		useGeneratedKeys="true">
+		insert into likelist (memidx, cridx, likecheck)
+		values (#{memidx},#{cridx},#{likecheck})
+	</insert>
+
+	<!-- 하트생성 & 취소 -->
+	<update id="updateLike"
+		parameterType="com.project.gymcarry.carrylike.CarryLikeDto">
+		update likelist set likecheck=#{param1} where
+		memidx=#{param2} and cridx=#{param3}
+	</update>
+
+	<!-- 멤버 방나가기 -->
+	<update id="updateOutChat"
+		parameterType="com.project.gymcarry.chatting.ChatListDto">
+		update chatlist set outcount=outcount -1 where
+		chatidx=#{param}
+	</update>
+	
+	<!-- 멤버 나간방 다시들어가기 -->
+	<update id="updateInChat"
+		parameterType="com.project.gymcarry.chatting.ChatListDto">
+		update chatlist set outcount=outcount +1 where
+		chatidx=#{param}
+	</update>
+
+	<!-- 캐리 방나가기 -->
+	<update id="updateCarryOutChat"
+		parameterType="com.project.gymcarry.chatting.ChatListDto">
+		update chatlist set outcount=outcount -1 where
+		chatidx=#{param}
+	</update>
+
+	<!-- 방인원수 0 되면 삭제 -->
+	<delete id="deleteChatRoom">
+		delete from chatlist where chatidx=#{param} and outcount=0
+	</delete>
+
+	<!-- 방count 가져옴 -->
+	<select id="selectRoomCount"
+		resultType="com.project.gymcarry.chatting.ChatListDto">
+		select * from chatlist where chatidx=#{param}
+	</select>
+	
+
+	
+</mapper>

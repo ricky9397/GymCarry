@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.CarryDao"> 
+
+
+	<!-- 캐리 정보 출력 -->
+	<select id="selectCarryDetail"
+		resultType="com.project.gymcarry.carry.CarryDto">
+		select * from carry where cridx=#{cridx}
+	</select>
+	
+	
+	<!-- 캐리 수업 가격 정보 출력 -->
+	<select id = "selectCarryPriceList"	
+		resultType="com.project.gymcarry.carry.CarryPriceDto">
+		select * from crprice where cridx=#{cridx}
+	</select>
+
+
+	<!-- 캐리 자격 및 경력 출력 -->
+	<select id = "selectCarryCerti"
+		resultType="com.project.gymcarry.carry.CarryCertiDto">
+		select * from crcertification where cridx=#{cridx}
+	</select>
+
+
+	<!-- 소속플레이스 정보 출력 (캐리 상세페이지 내) -->
+	<select id="selectCarryPlaceDetail"
+		resultType="com.project.gymcarry.place.PlaceDto">
+		select * from place natural join carry where cridx=#{cridx};
+	</select>
+	
+	
+	<!-- 캐리 리뷰 리스트 출력 -->
+	<select id="selectCarryReviewList"
+		resultType="com.project.gymcarry.carry.CarryReviewDto">
+		select * from review r, member m, carry c where m.memidx = r.memidx and c.cridx=r.cridx and c.cridx=#{cridx}
+		order by reviewidx desc
+	</select>
+	
+	
+	<!-- 캐리 리뷰 등록 -->
+	<insert id = "addCarryReview"
+		parameterType="com.project.gymcarry.carry.CarryReviewDto"
+		useGeneratedKeys="true"
+		keyProperty="reviewidx">
+		insert into review (reviewcontent, cridx, memidx)
+		values (#{reviewcontent}, #{cridx}, #{memidx})
+	</insert>
+
+	
+	
+	<!-- 캐리 리스트 (전체/매칭) -->
+	
+	<!-- 매칭 캐리 리스트 : 전체-->
+	<select id="selectAllCarryList"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, 
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5, crbfphoto
+		from carry natural join crcertification natural join crprice natural join place 
+		where procount=1;	
+	</select>
+	<!-- 매칭 캐리 리스트 : 전체/가격순
+	<select id="selectAllCarryListP"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, 
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5  
+		from carry natural join crcertification natural join crprice natural join place
+		order by proprice1 
+		where procount=1;
+	</select> -->
+	
+	
+	<!-- 1차 필터 : 성별(여) -->
+	<!-- 매칭 캐리 리스트 : [여자/헬스] -->
+	<select id="selectCarryListFH"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, crbfphoto,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5  
+		from carry natural join crcertification natural join crprice natural join place 
+		where crgender='여자' and crfield='헬스' and procount = 1;
+	</select>
+	<!-- 매칭 캐리 리스트 : [여자/필라테스] -->
+	<select id="selectCarryListFF"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, crbfphoto,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5  
+		from carry natural join crcertification natural join crprice natural join place 
+		where crgender='여자' and crfield='필라테스' and procount = 1;
+	</select>
+	<!-- 매칭 캐리 리스트 : [여자/요가] -->
+	<select id="selectCarryListFY"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, crbfphoto,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5  
+		from carry natural join crcertification natural join crprice natural join place 
+		where crgender='여자' and crfield='요가' and procount = 1;
+	</select>
+	
+	
+	<!-- 1차 필터 : 성별(남) -->
+	<!-- 매칭 캐리 리스트 : [남자/헬스]-->
+	<select id="selectCarryListMH"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, crbfphoto,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5 
+		from carry natural join crcertification natural join crprice natural join place 
+		where crgender='남자' and crfield='헬스' and procount = 1;
+	</select>
+	<!-- 매칭 캐리 리스트 : [남자/필라테스]-->
+	<select id="selectCarryListMF"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, crbfphoto,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5 
+		from carry natural join crcertification natural join crprice natural join place 
+		where crgender='남자' and crfield='필라테스' and procount = 1;
+	</select>
+	<!-- 매칭 캐리 리스트 : [남자/요가]-->
+	<select id="selectCarryListMY"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+		select cridx, crnick, placeidx, placename, proprice, crbfphoto,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5 
+		from carry natural join crcertification natural join crprice natural join place 
+		where crgender='남자' and crfield='요가' and procount = 1;
+	</select>
+	
+	<!-- 캐리 리뷰 리스트 출력 -->
+	<select id="selectCarryReviewListAll"
+		resultType="com.project.gymcarry.carry.CarryReviewIndexDto">
+		SELECT * FROM review natural join carry order by reviewidx desc;
+	</select>
+	
+
+
+
+</mapper>

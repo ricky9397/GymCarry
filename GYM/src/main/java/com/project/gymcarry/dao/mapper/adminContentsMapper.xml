@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.AdminContentsDao"> 
+
+	
+	<!-- 플레이스 관리 -->
+	
+	<!-- 컨텐츠 관리 : 전체 플레이스 리스트 출력 -->
+	<select id="selectAllPlaceList"
+		resultType="com.project.gymcarry.place.PlaceListDto">
+		select placeidx, placenum, placename, placeaddress, placephone
+		from place;
+	</select>	
+	
+
+	<!-- 새로운 플레이스 등록 -->
+	<insert id="registerPlace"
+		parameterType="com.project.gymcarry.place.PlaceDto"
+		useGeneratedKeys="true"
+		keyProperty="placeidx">
+		insert into place (placeidx, placenum, placename, placeaddress, placephone, placeinfo, openhour, placeintro)
+		values (#{placeidx}, #{placenum}, #{placename}, #{placeaddress}, #{placephone}, #{placeinfo}, #{openhour}, #{placeintro})		
+	</insert>
+
+
+	<!-- 기존 플레이스 정보 호출 : 수정폼 -->
+	<select id = "getPlaceOriginal"
+		resultType="com.project.gymcarry.place.PlaceDto">
+	select 
+		placeidx, placenum, placename, placeaddress,
+		placephone, placeinfo, openhour, placeintro
+	from 
+		place
+	where 
+		placeidx = #{placeidx}
+	</select>
+
+
+	<!-- 플레이스 수정 -->
+	<update id="updatePlace"
+		parameterType="com.project.gymcarry.place.PlaceDto">
+	update
+		place
+	set
+		placenum = #{placenum},
+		placename = #{placename},
+		placeaddress = #{placeaddress},
+		placephone = #{placephone},
+		placeinfo = #{placeinfo},
+		openhour = #{openhour},
+		placeintro = #{placeintro}
+	where
+		placeidx = #{placeidx}
+	</update>
+	
+	
+	<!-- 플레이스 삭제 -->
+	<delete id="deletePlace">
+		delete from place where placeidx=#{placeidx};
+	</delete>
+	
+
+	
+	<!-- 커뮤니티 게시판 관리 -->
+	
+	<!-- 커뮤니티 게시판 리스트 출력 -->
+	<select id="selectCommunityList"
+		resultType="com.project.gymcarry.board.BoardDto">
+	select postidx, postname, postcontent, postnick, postdate, boardcategory
+	from board;
+	</select>
+	
+	
+	<!-- 커뮤니티 게시글 삭제 -->
+	<delete id="deleteCommunity">
+		delete from board where postidx=#{postidx};
+	</delete>
+	
+	
+	
+	
+</mapper>

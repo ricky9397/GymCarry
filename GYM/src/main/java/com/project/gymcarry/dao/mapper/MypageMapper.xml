@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.MypageDao">
+
+
+	<insert id="insertMemo"
+		parameterType="com.project.gymcarry.mypage.MypageDto2"
+		useGeneratedKeys="true" keyProperty="infoidx">
+
+		insert into
+		mypage
+		(memidx,infocontent,infodate,infotype) values
+		(#{memidx},#{infocontent},#{infodate},#{infotype});
+	</insert>
+
+	<update id="updateMemo">
+		update mypage set infocontent = #{infocontent} where
+		memidx = #{memidx} and
+		infodate = #{infodate} and infotype =
+		#{infotype}
+	</update>
+
+	<select id="selectMemo"
+		resultType="com.project.gymcarry.mypage.MypageDto2">
+		select infocontent from mypage where memidx = #{arg0} and
+		infodate = #{arg1} and infotype = #{arg2}
+	</select>
+
+
+	<select id="selectpayment"
+		resultType="com.project.gymcarry.mypage.MypagePaymentDto">
+		SELECT carry.CRNAME as crname , memidx, payname , paynum ,
+		date_format(paydate,'%Y-%m-%d')
+		as paydate ,
+		payprice FROM
+		gymcarry.payment join carry where memidx = ${memidx} and carry.cridx =
+		payment.cridx
+		ORDER BY
+		paydate
+		DESC ;
+	</select>
+
+	<select id="getMyCarryList"
+		resultType="com.project.gymcarry.carry.CarryListDto">
+
+		select cridx, crnick, placeidx, placename, proprice,
+		crcerti1, crcerti2, crcerti3, crcerti4, crcerti5, crbfphoto
+		from carry
+		natural join crcertification natural join crprice natural join
+		place
+		where procount=1 and cridx in (SELECT cridx FROM gymcarry.likelist
+		where
+		memidx = ${memidx} and LIKECHECK = '1');
+
+	</select>
+
+	<select id="getBoardListCnt" resultType="int">
+		select count(*) as
+		listCnt
+		from board where memidx = ${memidx};
+	</select>
+
+	<select id="getBoardList"
+		resultType="com.project.gymcarry.board.BoardDto">
+		<![CDATA[
+        select *,
+		(SELECT count(*) FROM boardcomment comment WHERE comment.postidx = board.postidx) AS commentCnt,
+		(Select memphoto from gymcarry.member m where m.memidx = board.memidx) as memphoto,
+		(SELECT count(*) FROM bbslike WHERE bbslike.postidx = board.postidx) AS likeCnt
+        from board
+        where memidx = #{memidx}
+        order by postidx desc, postdate desc
+        LIMIT #{startList}, #{listSize}
+		]]>
+	</select>
+
+	<select id="selectmember"
+		resultType="com.project.gymcarry.mypage.MypageMemberDto">
+		select memidx,memphoto,memname,mememail,mempw,memphone,
+		memnick,membirth
+		from
+		member
+		where memidx = ${memidx};
+	</select>
+
+	<update id="memberupdate"
+		parameterType="com.project.gymcarry.mypage.MypageMemberDto">
+		update member set
+		memnick = #{memnick},
+		memphone=#{memphone},
+		memphoto = #{memphoto},
+		mempw = #{mempw}
+		where
+		memidx = #{memidx};
+	</update>
+
+	<select id="loadMemo2"
+		resultType="com.project.gymcarry.mypage.MypageDto2">
+		select infocontent,infotype from mypage where memidx =
+		#{arg0} and
+		infodate =
+		#{arg1} ORDER BY FIELD(infotype,
+		'photo','food','kg','memo') DESC,
+		infotype ASC;
+	</select>
+
+
+</mapper>

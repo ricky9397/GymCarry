@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.gymcarry.dao.AdminBoardDao"> 
+
+
+	<!-- 관리자 게시판 -->
+	
+	<!-- 관리자 게시판 리스트 출력 -->
+	<select id = "selectAllAdminBoard"
+		resultType="com.project.gymcarry.admin.AdminBoardDto">
+		select * from adminboard
+	</select>
+
+
+	<!-- 관리자 게시판 작성 -->
+	<insert id = "writeAdminBoard"
+		parameterType="com.project.gymcarry.admin.AdminBoardDto"
+		useGeneratedKeys="true"
+		keyProperty="idx">
+		insert into adminboard (idx, category, adminidx, title, content, date)
+		values (#{idx}, #{category}, #{adminidx}, #{title}, #{content}, #{date})	
+	</insert>
+	
+	
+	<!-- 기존 게시글 호출 : 수정폼 -->
+	<select id="getContentOriginal"
+		resultType="com.project.gymcarry.admin.AdminBoardDto">
+		select idx, category, title, content from adminboard where idx=#{idx}	
+	</select>
+
+
+	<!-- 게시글 수정 -->
+	<update id="updateContent"
+		parameterType="com.project.gymcarry.admin.AdminBoardDto">
+		update adminboard
+		set category=#{category}, title=#{title}, content=#{content}
+		where idx=#{idx}
+	</update>
+	
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteContent">
+		delete from adminboard where idx=#{idx}
+	</delete>
+	
+
+
+
+	<!-- FOOTER 연결 START -->
+
+	<!-- 게시글 출력 -->
+	<select id = "contentView"
+		resultType="com.project.gymcarry.admin.ContentDto">
+		select
+			title, content, date, category
+		from 
+			adminboard 
+		where 
+			idx=#{idx}
+	</select>
+	
+	
+	<!-- [약관 및 정책] 카테고리 게시판 리스트 출력  -->
+	<select id="selectTermBoardList"
+		resultType="com.project.gymcarry.admin.AdminBoardDto">
+		select * from adminboard where category='약관 및 정책'
+	</select>
+	
+	
+	<!-- [공지사항] 카테고리 게시판 리스트 출력  -->
+	<select id="selectNoticeBoardList"
+		resultType="com.project.gymcarry.admin.AdminBoardDto">
+		select * from adminboard where category='공지사항'
+	</select>
+	
+
+	<!-- FOOTER 연결 END -->
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,267 @@
+@charset "utf-8";
+* {
+    margin:0;
+    padding:0;
+}
+html {
+    height:auto;
+}
+body {
+	background:#f7f7f7
+}
+
+#alter {
+	font-weight : bold;
+	margin-bottom: 30px;
+}
+
+.kakao_btn {
+	border: none;
+	background-color: none;
+	cursor:pointer;
+}
+
+.kakao_btn:hover {
+	cursor: pointer;
+}
+
+.google_btn {
+	margin:0 auto 30px; 
+}
+.google_btn .abcRioButton {
+	margin:0 auto;	
+}
+.google_btn span {
+	font-size:14px !important;
+}
+
+.abcRioButtonContentWrapper {
+	position:relative;
+	box-shadow:none;
+}
+.abcRioButtonContents {
+	position:absolute;
+	left:50%;
+	transform:translateX(-50%);
+}
+ p, em, ol, ul, li, dl, dt, dd, a, address, img, h2, h3, h4, h5, h6 {
+    font-size:11pt; 
+    text-decoration: none;
+}
+
+.apiLogin {
+	margin: 10px 0;
+}
+
+.apiLogin .kakao {
+	margin-top : 40px;
+}
+
+
+.sub_tit_txt{
+    margin:0 auto 30px; 
+    color: #2f2f2f; 
+    font-size: 28px;
+}
+
+img {
+    border:0; 
+}
+
+.form_txtInput{
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    padding:0 0 0 0px;
+}
+
+.login_form{
+    text-align: center;
+    justify-content : center;
+}
+
+
+.wrap{
+    width: 60%;
+    box-shadow: 0 0 3em rgba(0, 0, 0, 0.15);
+    max-width:960px; 
+    margin: 0 auto;}
+
+.wrap.wd668{
+    width: 40%;
+    min-width: 450px;
+    text-align: center;
+    justify-content : center;
+    padding: 30px;
+    margin-top : 170px;
+}
+
+.container{
+    width:100%;
+}
+
+
+#btnbox{
+    text-align: center;
+}
+
+.btn_wrap{
+	text-align:center;
+    margin: 30px 5px;
+}
+
+#loginbtn .btn_wrap2 {
+    text-align:center;
+    margin: 30px 5px;
+}
+
+#loginbtn.wide, .btn_wrap2 a.wide{
+    width: 70px;
+    margin: 0 15px;
+}
+
+#loginbtn{
+	border: 0;
+    color: #fff; 
+    background-color: #4380ce; 
+    font-weight: bold; 
+    height: 40px; 
+    line-height: 40px; 
+    width: 130px; 
+    display: inline-block; 
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: -30px;
+    cursor:pointer;
+}
+
+.btn_wrap2 a{
+    color: #fff; 
+    background-color: #ccc; 
+    font-weight: bold; 
+    height: 40px; 
+    line-height: 40px; 
+    width: 130px; 
+    display: inline-block; 
+    text-align: center;
+    margin: 0 auto;
+}
+
+#loginbtn:hover{
+    background: #0094ff;
+    color: #fff;
+}
+
+.btn_wrap2 a:hover{
+    background: #bbb;
+    color: #fff;
+}
+
+.login_form .tb{
+    width:100%;
+}
+
+.login_form  {
+    border-spacing: 0;
+    margin:0;
+    padding:0; 
+    border:0;
+    width:100%;
+}
+#catebox{
+	margin-bottom : 15px;
+}
+
+.tb{
+	font-family: "Montserrat", sans-serif;
+	text-align:left;
+    color:#404040;
+    font-size:14px; 
+    display:inline-block; 
+    position:relative;
+    padding:0 10px 0 0; 
+    margin : 10px auto;
+    /* text-indent:20px; */
+}
+
+.login_form #into{
+    padding:6px 0;
+    position: relative;
+	border:1px solid #ececec;
+    font-size:14px;
+    color:#4c4c4c; 
+    height:40px; 
+    padding:10px; 
+    width:100%; 
+    float:left;
+}
+
+.login_form table input{ 
+    border:1px solid #ececec;
+    font-size:14px;
+    color:#4c4c4c; 
+    height:40px; 
+    padding:10px; 
+    width:100%; 
+    float:left;
+}
+
+.login_form p{
+    text-align:left;
+    font-size: 12px;
+    font-weight: lighter;
+    margin-top: 5px;
+    color: #ccc;
+}
+
+.login_form table #btnbox{
+    display: inline-flex;
+}
+
+.login_form table input[type="radio"]{
+    height: 20px;
+    flex-wrap: nowrap;
+    justify-content : center;
+}
+
+.login_form table input[type="checkbox"]{
+    height: 20px;
+    flex-wrap: nowrap;
+    justify-content : center;
+}
+
+.login_form table input.email{
+    width:100%; 
+    display: inline-block;
+}
+
+hr{
+    margin :20px auto;
+}
+
+
+.change>ul {
+    display: flex;
+    justify-content: center;
+}
+
+.change>ul>li {
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tab2 {
+    border-left: 2px solid #ddd;
+    color: #929192
+}
+
+.change>ul>li:first-child {
+    border: 0;
+}
+
+.selectbox{
+    margin-top: 10px auto 0;
+}

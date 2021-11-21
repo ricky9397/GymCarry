@@ -1,0 +1,359 @@
+@charset "UTF-8";
+
+a {
+	text-decoration: none !important;
+	cursor:pointer;
+}
+
+a:hover {
+	text-decoration: none !important;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding-right: 0px;
+}
+
+
+
+.input-kg-left {
+	padding-left: 0px;
+	text-align: left;
+	width: 100%;
+	font-size: 100px;
+	font-weight: 600;
+	border: hidden;
+}
+
+.row:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+
+.contents {
+	margin: 10% 15%
+}
+
+.col-right-order {
+	height: 100%;
+}
+
+.col-right-order .col-right-top {
+	height: 98%;
+}
+
+[class*="col-"] {
+	padding: 1em;
+	border-radius: 10px;
+}
+
+[class*="my-info"] {
+	padding: 0.5em;
+	border-radius: 10px;
+}
+
+[class*="col-right-top"] h3 {
+	margin: 1%;
+	text-align: center
+}
+
+.input-kg {
+	text-align: center;
+	width: 100%;
+	font-size: 100px;
+	font-weight: 600;
+	padding-left: 50px;
+	border: hidden;
+}
+
+.datepick {
+	text-align: center;
+	border: none;
+	$(".
+	date-pick
+	").datepicker('setDate',
+	new
+	Date());
+}
+
+[class*="col-right"] h3 {
+	margin: 1%;
+	float: left;
+}
+
+[class*="col-right"], .edit_text {
+	width: 1.5em;
+	float: right;
+}
+
+[class*="col-right"], .edit_text2 {
+	width: 1.5em;
+}
+
+.col-r-order {
+	padding: 0;
+	height: 100%
+}
+
+.col-h1 {
+	width: 25%;
+	margin-bottom: 3%;
+}
+
+.c-table {
+	width: 95%;
+	margin: auto;
+}
+
+.c-table td {
+	width: 25%;
+	height: 50px;
+	border-left: hidden;
+	border-right: hidden;
+}
+
+.c-table h3 {
+	margin: auto;
+	float: none;
+}
+
+.memo-input-div {
+	padding: 1%;
+	width: 100%;
+	height: 85%;
+	display: flex;
+}
+
+.memo-input {
+	width: 100%;
+	border: hidden;
+}
+
+.ui-widget.ui-widget-content {
+	border: 1px solid #c5c5c5;
+	MARGIN: AUTO;
+	WIDTH: 100%;
+	HEIGHT: 100%;
+}
+
+.col-r-order .col-right-top {
+	height: 100%
+}
+
+.col {
+	display: grid;
+}
+
+.col-flex {
+	display: flex;
+}
+
+.col-left {
+	width: 33%;
+	height: 100%;
+	float: left;
+	background-color: white;
+	height: 100%;
+}
+
+.col-right {
+	width: 100%;
+	background-color: white;
+}
+
+.col-right2 {
+	width: 66%;
+	margin-left: 10px;
+	float: left;
+	background-color: white;
+}
+
+.col-right-left {
+	width: 49%;
+	height: 620px;
+	float: left;
+	background-color: white;
+	margin-bottom: 17px;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+}
+
+.col-right-right {
+	width: 49%;
+	height: 200px;
+	margin-left: 17px;
+	float: left;
+	background-color: white;
+	margin-bottom: 17px;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+}
+
+.col-right-right2 {
+	width: 49%;
+	height: 400px;
+	margin-left: 17px;
+	float: left;
+	background-color: white;
+	margin-bottom: 17px;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+}
+
+.col-right-top {
+	width: 96%;
+	background-color: white;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+	text-align: center;
+	margin: auto;
+}
+
+.col-right-top-memo {
+	width: 100%;
+	background-color: white;
+	margin-bottom: 17px;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+	text-align: left;
+	height: 300px;
+}
+
+.my-info {
+	background-color: white;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+	margin-bottom: 17px;
+}
+
+.title {
+	font-weight: 900;
+	line-height: 0.8;
+	text-align: center;
+}
+
+.modal-photo {
+	height: 700px !important;
+}
+
+.photo-margin img {
+	height: 100%;
+	width: 100%;
+}
+
+.display_none {
+	height: 210px;
+	width: 210px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin: 0 0 0 25px;
+}
+
+.photo-margin {
+	margin: 0;
+	width: 100%;
+	height: 85%;
+}
+
+.memo-input-div-photo img {
+	padding: 3%;
+	height: 95%;
+	width: 100%;
+	height: 95%;
+}
+
+.memo-input-div-photo {
+	width: 100%;
+	height: 100%;
+}
+
+.check {
+	position: absolute !important;
+	right: 5px !important;
+	margin-top: 4px;
+	bottom: 33px !important;
+}
+
+.info_title {
+	padding: 2% 2% 2% 3%;
+}
+
+.info_contents {
+	padding: 0% 2% 2% 5%;
+	list-style: none;
+}
+
+.info_list {
+	padding: 1%;
+	list-style: none;
+}
+
+.my-info-develope {
+	background-color: white;
+	margin-top: 10px;
+	box-shadow: 0 0 20px rgb(0 0 0/ 20%);
+}
+
+.col-name {
+	width: 100%;
+	display: flex;
+}
+
+.col-1 {
+	width: 8.33%;
+}
+
+.col-2 {
+	width: 16.66%;
+}
+
+.col-3 {
+	width: 25%;
+}
+
+.col-4 {
+	width: 33.33%;
+}
+
+.col-5 {
+	width: 41.66%;
+}
+
+.col-6 {
+	width: 50%;
+}
+
+.col-7 {
+	width: 58.33%;
+}
+
+.col-8 {
+	width: 66.66%;
+}
+
+.col-9 {
+	width: 75%;
+}
+
+.col-10 {
+	width: 83.33%;
+}
+
+.col-11 {
+	width: 91.66%;
+}
+
+.col-12 {
+	width: 100%;
+}
+
+input[type="text"]:focus {
+	outline: none;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+	border: hidden;
+}
