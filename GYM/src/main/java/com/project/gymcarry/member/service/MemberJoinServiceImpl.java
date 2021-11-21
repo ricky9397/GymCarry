@@ -12,92 +12,60 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.gymcarry.carry.CarryJoinDto;
 import com.project.gymcarry.carry.CarryToJoinDto;
-import com.project.gymcarry.dao.MemberDao;
+import com.project.gymcarry.common.CommPhotoVO;
+import com.project.gymcarry.dao.MemberDAO;
 import com.project.gymcarry.member.MemberDto;
-import com.project.gymcarry.member.MemberJoinDto;
+import com.project.gymcarry.member.MemberVO;
 
 @Service
-public class JoinService {
+public class MemberJoinServiceImpl implements MemberService {
 
 	@Autowired
 	private SqlSessionTemplate template;
 
-	private MemberDao dao;
+	private MemberDAO dao;
 
 	// 멤버 이메일 중복 검사
 	public int memberemailCheck(String mememail) throws Exception {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 		return dao.memberemailCheck(mememail);
 	}
 
 	// 멤버 닉네임 중복 검사
 	public int memberNickCheck(String memNick) {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 		return dao.memberNickCheck(memNick);
 	}
-	
+
 	// 멤버 핸드폰번호 중복 검사
-		public int memberPhoneCheck(String memphone) {
-			dao = template.getMapper(MemberDao.class);
-			return dao.memberPhoneCheck(memphone);
-		}
+	public int memberPhoneCheck(String memphone) {
+		dao = template.getMapper(MemberDAO.class);
+		return dao.memberPhoneCheck(memphone);
+	}
 
 	// 캐리 이메일 중복 검사
 	public int carryemailCheck(String cremail) throws Exception {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 		return dao.carryemailCheck(cremail);
 	}
 
-	// 캐리 닉네임  중복 검사
+	// 캐리 닉네임 중복 검사
 	public int carryNickCheck(String crNick) throws Exception {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 		return dao.carryNickCheck(crNick);
 	}
-	
+
 	// 캐리 핸드폰번호 중복 검사
 	public int carryPhoneCheck(String crphone) {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 		return dao.carryPhoneCheck(crphone);
 	}
 
-	// 멤버 회원가입
-	public int memberJoin(MemberJoinDto memberJoinDto, HttpServletResponse response, HttpServletRequest request)
-			throws Exception {
-		dao = template.getMapper(MemberDao.class);
-		File newFile = null;
-
-		MemberDto meberDto = memberJoinDto.getMemberDto();
-
-		if (memberJoinDto.getMemphoto() != null && !memberJoinDto.getMemphoto().isEmpty()) {
-			// 파일객체에 경로 지정!
-			File newDir = new File(request.getSession().getServletContext().getRealPath("/uploadfile"));
-			if (!newDir.exists()) {
-				newDir.mkdir();
-			}
-
-			// db에 저장할 파일이름 !!!!!!!!
-			String newFileName = memberJoinDto.getMememail() + System.currentTimeMillis() + "."
-					+ chkFileType(memberJoinDto.getMemphoto());
-
-			// 파일객체에 경로와 중복제거한 이름 저장(newDir:경로 , newFileName:저장파일이름)!!!!
-			newFile = new File(newDir, newFileName);
-
-			// 파일 joinDto 저장
-			memberJoinDto.getMemphoto().transferTo(newFile);
-
-			// 파일 이름을 memberDto 저장!
-			meberDto.setMemphoto(newFileName);
-
-		} else {
-			meberDto.setMemphoto("profile2.png");
-		}
-		return dao.insertMember(meberDto);
-	}
-
 	// 캐리 회원가입
-	public int carryJoin(CarryToJoinDto carryToJoinDto, HttpServletResponse response, HttpServletRequest request) throws Exception {
-		dao = template.getMapper(MemberDao.class);
-		
+	public int carryJoin(CarryToJoinDto carryToJoinDto, HttpServletResponse response, HttpServletRequest request)
+			throws Exception {
+		dao = template.getMapper(MemberDAO.class);
+
 		File newFile = null;
 		CarryJoinDto carryJoinDto = carryToJoinDto.getCarryJoinDto();
 		if (carryToJoinDto.getCrphoto() != null && !carryToJoinDto.getCrphoto().isEmpty()) {
@@ -130,7 +98,8 @@ public class JoinService {
 		String extension = "";
 		// 업로드 파일의 contentType
 		String contentType = file.getContentType();
-		if (!(contentType.equals("image/jpeg") || contentType.equals("image/jpg") || contentType.equals("image/png") || contentType.equals("image/gif"))) {
+		if (!(contentType.equals("image/jpeg") || contentType.equals("image/jpg") || contentType.equals("image/png")
+				|| contentType.equals("image/gif"))) {
 			throw new Exception("허용하지 않는 파일 타입 : " + contentType);
 		}
 		// 파일 확장자 구하기
@@ -142,12 +111,42 @@ public class JoinService {
 		extension = nameTokens[nameTokens.length - 1].toLowerCase();
 		// 이미지 파일 이외의 파일 업로드 금지
 		// 파일 확장자 체크
-		if (!(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("gif"))) {
+		if (!(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")
+				|| extension.equals("gif"))) {
 			throw new Exception("허용하지 않는 파일 확장자 타입 : " + contentType);
 		}
 		return extension;
 	}
 
-
+	
+	
+	/** insert 회원가입 & 사진업로드 */
+	@Override
+	public int insertMemberJoin(MemberVO member, CommPhotoVO memPhoto, HttpServletRequest request) throws Exception {
+		dao = template.getMapper(MemberDAO.class);
+		
+		File newFile = null;
+		
+		member = memPhoto.getMemberVO();
+		
+		if (member.getMemPhoto() != null && !member.getMemPhoto().isEmpty()) {
+			// 파일객체에 경로 지정
+			File newDir = new File(request.getSession().getServletContext().getRealPath("/uploadfile"));
+			if (!newDir.exists()) { newDir.mkdir(); }
+			// DB에 저장할 파일 이름
+			String newFileName = member.getMemEmail() + System.currentTimeMillis() + "."
+					+ chkFileType(memPhoto.getMemPhoto());
+			// 파일객체에 경로와 중복제거한 이름 저장(newDir:경로 , newFileName:저장파일이름)
+			newFile = new File(newDir, newFileName);
+			// 파일 CommPhoto객체 저장
+			memPhoto.getMemPhoto().transferTo(newFile);
+			// 파일 이름을 memberVO 저장!
+			member.setMemPhoto(newFileName);
+		} else {
+			// default 사진 이름
+			member.setMemPhoto("profile2.png");
+		}
+		return dao.insertMemberJoin(member);
+	}
 
 }

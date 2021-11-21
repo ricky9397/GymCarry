@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.gymcarry.common.SHA256;
-import com.project.gymcarry.dao.MemberDao;
+import com.project.gymcarry.dao.MemberDAO;
 import com.project.gymcarry.find.TempPWD;
 import com.project.gymcarry.member.MemberDto;
 import com.project.gymcarry.member.service.MailSenderService;
@@ -27,12 +27,12 @@ public class FindService {
 	private SqlSessionTemplate template;
 	@Autowired
 	private MailSenderService mailsender;
-	private MemberDao dao;
+	private MemberDAO dao;
 	private String tempPWD;
 
 	// 캐리 아이디 찾기
 	public String findcarryid(HttpServletResponse response, String crname, String crphone) throws IOException {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -56,7 +56,7 @@ public class FindService {
 	
 	// 회원 아이디 찾기
 	public String findid(HttpServletResponse response, String memname, String memphone) throws IOException {
-		dao = template.getMapper(MemberDao.class);
+		dao = template.getMapper(MemberDAO.class);
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -80,7 +80,7 @@ public class FindService {
 	
 	// 패스워드 찾기 이메일 발송 
 		public String findPassword(HttpServletResponse response, String memname, String mememail) throws IOException {
-			dao = template.getMapper(MemberDao.class);
+			dao = template.getMapper(MemberDAO.class);
 			
 			return dao.findPassword(memname, mememail);
 		}
@@ -88,7 +88,7 @@ public class FindService {
 		
 	// 캐리 패스워드 찾기 이메일 발송
 		public String findCarryPassword(HttpServletResponse response, String crname, String cremail) throws IOException {
-			dao = template.getMapper(MemberDao.class);
+			dao = template.getMapper(MemberDAO.class);
 			
 			return dao.findCarryPassword(crname, cremail);
 		}

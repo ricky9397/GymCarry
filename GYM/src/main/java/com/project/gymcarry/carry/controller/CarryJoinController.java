@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.project.gymcarry.carry.CarryJoinDto;
 import com.project.gymcarry.carry.CarryToJoinDto;
 import com.project.gymcarry.common.SHA256;
-import com.project.gymcarry.member.service.JoinService;
+import com.project.gymcarry.member.service.MemberJoinServiceImpl;
 import com.project.gymcarry.member.service.MailSenderService;
 
 @Controller
 public class CarryJoinController {
 
 	@Autowired
-	JoinService joinservice;
+	MemberJoinServiceImpl joinservice;
 	@Autowired
 	private MailSenderService mailsenderservice;
 	

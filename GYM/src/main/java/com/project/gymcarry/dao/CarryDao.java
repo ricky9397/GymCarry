@@ -1,6 +1,7 @@
 package com.project.gymcarry.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.project.gymcarry.carry.CarryCertiDto;
 import com.project.gymcarry.carry.CarryDto;
@@ -46,7 +47,11 @@ public interface CarryDao {
 
 	
 	// 캐리 리뷰 전체 출력(index)
-	List<CarryReviewDto> selectCarryReviewListAll();
+	//List<CarryReviewDto> selectCarryReviewListAll();
+	
+	
+	
+	List<Map<String, Object>> selectReviewList();
 	
 	
 }

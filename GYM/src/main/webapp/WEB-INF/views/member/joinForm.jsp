@@ -19,79 +19,74 @@
 	<!-- Contents -->
 	<div class="wrap wd668">
 		<div class="container">
-			<form id="joinForm" action="<c:url value="/member/join"/>"
-				method="post" enctype="multipart/form-data">
+			<%-- <form id="joinForm" action="<c:url value="/member/join"/>" method="post" enctype="multipart/form-data"> --%>
+			<form id="joinForm">
 				<div class="form_txtInput">
 					<h1 class="sub_tit_txt">회원 회원가입</h1>
 					<p class="exTxt">회원가입시 이메일 인증을 반드시 진행하셔야 합니다.</p>
-
-
 					<div class="join_form">
 						<div class="profile_form">
 							<div class="profileimg" id="image_container">
 								<img src="/gym/images/icon/profile2.png"><br>
 							</div>
-							<input type="button" value="사진업로드" class="profilebtn"
-								name="memphoto" onclick =document.all.file.click();> <input
-								type="file" name="memphoto" id="file" class="profilebtn"
-								style="display: none;" />
+							<input type="button" value="사진업로드" class="profilebtn" name="memPhoto" onclick =document.all.file.click();> 
+							<input type="file" name="memPhoto" id="file" class="profilebtn" style="display: none;" />
 						</div>
+						
 						<table>
 							<colgroup>
 								<col width="30%" />
 								<col width="auto" />
 							</colgroup>
+							
 							<tbody>
 								<tr>
 									<th><span>이름</span></th>
-									<td><input type="text" name="memname" id="memname"
+									<td><input type="text" name="memName" id="memname"
 										placeholder="이름" required />
 										<div class="check_font" id="namecheck"></div></td>
 								</tr>
 
 								<tr class="email">
 									<th><span>이메일</span></th>
-									<td><input type="text" name="mememail" id="mememail"
-										placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다." required>
+									<td><input type="text" name="memEmail" id="mememail" placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다." required>
 										<span id="msg" class="display_none"></span>
 										<div class="check_font" id="emailcheck" style="float: left"></div>
 									</td>
 								</tr>
 								<tr>
 									<th><span>비밀번호</span></th>
-									<td><input type="password" name="mempw" id="mempw"
-										placeholder="비밀번호를 입력해주세요.">
+									<td><input type="password" name="memPw" id="mempw" placeholder="비밀번호를 입력해주세요.">
 										<div class="check_font" id="pwcheck"></div></td>
 								</tr>
 
 								<tr>
 									<th><span>비밀번호 확인</span></th>
-									<td><input type="password" name="mempw2" id="mempw2"
+									<td><input type="password" name="memPw2" id="mempw2"
 										placeholder="비밀번호를 확인해주세요.">
 										<div class="check_font" id="mempw2check"></div></td>
 								</tr>
 
 								<tr>
 									<th><span>닉네임</span></th>
-									<td><input type="text" name="memnick" id="memnick"
-										placeholder="닉네임"> <span id="msg_nick"
-										class="display_none"></span>
-										<div class="check_font" id="nickcheck"></div></td>
+									<td><input type="text" name="memNick" id="memnick" placeholder="닉네임"> <span id="msg_nick" class="display_none"></span>
+										<div class="check_font" id="nickcheck"></div>
+									</td>
 								</tr>
 
 								<tr>
 									<th><span>휴대폰 번호</span></th>
-									<td><input type="text" name="memphone" id="memphone"
-										placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요.">
+									<td><input type="text" name="memPhone" id="memphone" placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요.">
 										<span id="msg_phone" class="display_none"></span>
-										<div class="check_font" id="phonecheck"></div></td>
+										<div class="check_font" id="phonecheck"></div>
+									</td>
 								</tr>
 
 								<tr>
 									<th><span>생년월일</span></th>
-									<td><input type="text" name="membirth" id="membirth"
-										placeholder="8자리 형식의 숫자로만 입력해주세요.ex_19901010">
-										<div class="check_font" id="birthcheck"></div></td>
+									<td><input type="text" name="memBirth" id="membirth" placeholder="8자리 형식의 숫자로만 입력해주세요.ex_19901010">
+										<div class="check_font" id="birthcheck"></div>
+									</td>
 								</tr>
 
 								<tr>
@@ -99,13 +94,14 @@
 									<td>
 										<div class="selectbox">
 											<label for="male" id="male_label">
-												<input type="radio" name="memgender" id="male" value="남자">남자
+												<input type="radio" name="memGender" id="male" value="남자">남자
 											</label>
 											<label for="female" id="female_label">
-												<input type="radio" name="memgender" id="female" value="여자">여자
+												<input type="radio" name="memGender" id="female" value="여자">여자
 											</label>
 										</div>
-										<div class="check_font" id="gendercheck"></div></td>
+										<div class="check_font" id="gendercheck"></div>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -137,7 +133,33 @@
 
 </body>
 
+
 <script>
+	
+	$('#joinsubmit').click(function(){
+		
+		var formAction = $("form[name=testForm]").serialize();
+		
+		$.ajax({
+			type : 'POST',
+			enctype: 'multipart/form-data',
+			url : '<c:url value="member/join"/>',
+			dataType : 'json',
+			data : formAction,
+			success : function(data){
+				if(data == 0){
+					alert('회원가입 실패 했습니다.');	
+				} else if(data == 1){
+					alert('회원가입 완료 되었습니다.');
+				} else {
+					
+				}
+				
+			}
+		});
+	});
+
+
 
 	//등록 이미지 등록 미리보기
 	function readInputFile(input) {

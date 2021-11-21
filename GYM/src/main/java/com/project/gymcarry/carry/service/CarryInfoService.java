@@ -1,6 +1,7 @@
 package com.project.gymcarry.carry.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,9 +108,14 @@ public class CarryInfoService {
 	
 	
 	// 캐리 리뷰 전체 리스트(index)
-	public List<CarryReviewDto> getCarryReviewListAll(){
+//	public List<CarryReviewDto> getCarryReviewListAll(){
+//		dao = template.getMapper(CarryDao.class);
+//		return dao.selectCarryReviewListAll();
+//	}
+
+	public List<Map<String, Object>> selectReviewList() {
 		dao = template.getMapper(CarryDao.class);
-		return dao.selectCarryReviewListAll();
+		return dao.selectReviewList();
 	}
 	
 	

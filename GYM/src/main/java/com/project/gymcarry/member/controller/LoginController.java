@@ -27,26 +27,25 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@GetMapping("member/login")
 	public String loginForm() {
 		return "member/loginForm";
 	}
 
-	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
-
 	// 로그인 세션 저장
 	@PostMapping("/member/memberLogin")
-	public String login(@RequestParam("mememail") String id, @RequestParam("mempw") String pw,
+	public String login(@RequestParam("memEmail") String id, @RequestParam("memPw") String pw,
 			MemberDto memberjoinkeycheck, SessionDto memberLogin, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		System.out.println("멤버 로그인 프로세스 입장>>");
 		String password = SHA256.encrypt(pw);
-		System.out.println(password);
+		
 		MemberDto memberDto = loginService.memberjoinkeycheck(id, password);
 
 		if (memberDto != null) {

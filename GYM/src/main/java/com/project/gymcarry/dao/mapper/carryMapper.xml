@@ -127,10 +127,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where crgender='남자' and crfield='요가' and procount = 1;
 	</select>
 	
-	<!-- 캐리 리뷰 리스트 출력 -->
-	<select id="selectCarryReviewListAll"
-		resultType="com.project.gymcarry.carry.CarryReviewIndexDto">
-		SELECT * FROM review natural join carry order by reviewidx desc;
+	
+	<!-- 메인화면 캐리 리뷰화면 -->
+	<select id="selectReviewList" resultType="map">
+		SELECT CRNAME,
+			   CRBFPHOTO,
+			   REVIEWCONTENT
+			   
+		  FROM REVIEW NATURAL 
+		  JOIN CARRY 
+		 ORDER BY REVIEWIDX DESC
 	</select>
 	
 

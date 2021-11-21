@@ -14,11 +14,11 @@ public class MemberJoinDto {
 	private String joinkey;
 	private String joinkey_status;
 	private String snsjoinid;
-	public MemberJoinDto() {
-	}
+	
+	public MemberJoinDto() { }
+	
 	public MemberJoinDto(String mememail, String mempw, String memname, String memnick, String memphone, int membirth,
 			String memgender, MultipartFile memphoto, String joinkey, String joinkey_status, String snsjoinid) {
-		super();
 		this.mememail = mememail;
 		this.mempw = mempw;
 		this.memname = memname;

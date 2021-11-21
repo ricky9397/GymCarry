@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.gymcarry.member.service.JoinService;
+import com.project.gymcarry.member.service.MemberJoinServiceImpl;
 
 @RestController
 public class CarryJoinEmailNickCheck {
 
 	@Autowired
-	JoinService joinservice;
+	MemberJoinServiceImpl joinservice;
 
 	// 캐리이메일 중복 체크 ajax
 	@PostMapping("/carry/emailCheck")
