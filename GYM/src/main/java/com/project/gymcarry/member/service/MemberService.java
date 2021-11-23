@@ -2,7 +2,6 @@ package com.project.gymcarry.member.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.project.gymcarry.common.CommPhotoVO;
 import com.project.gymcarry.member.MemberVO;
 
 public interface MemberService {
@@ -15,7 +14,7 @@ public interface MemberService {
 	 * @return
 	 * @throws Exception
 	 */
-	int insertMemberJoin(MemberVO member,CommPhotoVO memphoto, HttpServletRequest request) throws Exception;
+	int insertMemberJoin(MemberVO member, HttpServletRequest request) throws Exception;
 	
 	
 	

@@ -94,16 +94,16 @@ public class MemberJoinServiceImpl implements MemberService {
 	}
 
 	// 파일의 ContentType 과 파일 확장자를 체크
-	private String chkFileType(MultipartFile file) throws Exception {
+	private String chkFileType(String photo) throws Exception {
 		String extension = "";
 		// 업로드 파일의 contentType
-		String contentType = file.getContentType();
+		String contentType = photo;
 		if (!(contentType.equals("image/jpeg") || contentType.equals("image/jpg") || contentType.equals("image/png")
 				|| contentType.equals("image/gif"))) {
 			throw new Exception("허용하지 않는 파일 타입 : " + contentType);
 		}
 		// 파일 확장자 구하기
-		String fileName = file.getOriginalFilename();
+		String fileName = photo;
 		// String[] java.lang.String.split(String regex)
 		// : 정규식의 패턴 문자열을 전달해야하기 때문에 \\. 으로 처리
 		String[] nameTokens = fileName.split("\\."); /// tet.mini2.jpg PNG png
@@ -118,16 +118,14 @@ public class MemberJoinServiceImpl implements MemberService {
 		return extension;
 	}
 
-	
+
 	
 	/** insert 회원가입 & 사진업로드 */
 	@Override
-	public int insertMemberJoin(MemberVO member, CommPhotoVO memPhoto, HttpServletRequest request) throws Exception {
+	public int insertMemberJoin(MemberVO member, HttpServletRequest request) throws Exception {
 		dao = template.getMapper(MemberDao.class);
 		
 		File newFile = null;
-		
-		member = memPhoto.getMemberVO();
 		
 		if (member.getMemPhoto() != null && !member.getMemPhoto().isEmpty()) {
 			// 파일객체에 경로 지정
@@ -135,16 +133,18 @@ public class MemberJoinServiceImpl implements MemberService {
 			if (!newDir.exists()) { newDir.mkdir(); }
 			// DB에 저장할 파일 이름
 			String newFileName = member.getMemEmail() + System.currentTimeMillis() + "."
-					+ chkFileType(memPhoto.getMemPhoto());
+					+ chkFileType(member.getMemPhoto().getOriginalFilename());
+			
 			// 파일객체에 경로와 중복제거한 이름 저장(newDir:경로 , newFileName:저장파일이름)
 			newFile = new File(newDir, newFileName);
 			// 파일 CommPhoto객체 저장
-			memPhoto.getMemPhoto().transferTo(newFile);
-			// 파일 이름을 memberVO 저장!
-			member.setMemPhoto(newFileName);
+			member.getMemPhoto().transferTo(newFile);
+			
 		} else {
 			// default 사진 이름
+			
 			member.setMemPhoto("profile2.png");
+			
 		}
 		return dao.insertMemberJoin(member);
 	}

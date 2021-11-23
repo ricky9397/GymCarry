@@ -41,41 +41,40 @@
 							<tbody>
 								<tr>
 									<th><span>이름</span></th>
-									<td><input type="text" name="memName" id="memname"
-										placeholder="이름" required />
+									<td><input type="text" name="memName" id="memName" placeholder="이름" required />
 										<div class="check_font" id="namecheck"></div></td>
 								</tr>
 
 								<tr class="email">
 									<th><span>이메일</span></th>
-									<td><input type="text" name="memEmail" id="mememail" placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다." required>
+									<td><input type="text" name="memEmail" id="memEmail" placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다." required>
 										<span id="msg" class="display_none"></span>
 										<div class="check_font" id="emailcheck" style="float: left"></div>
 									</td>
 								</tr>
 								<tr>
 									<th><span>비밀번호</span></th>
-									<td><input type="password" name="memPw" id="mempw" placeholder="비밀번호를 입력해주세요.">
+									<td><input type="password" name="memPw" id="memPw" placeholder="비밀번호를 입력해주세요.">
 										<div class="check_font" id="pwcheck"></div></td>
 								</tr>
 
 								<tr>
 									<th><span>비밀번호 확인</span></th>
-									<td><input type="password" name="memPw2" id="mempw2"
+									<td><input type="password" name="memPw2" id="memPw2"
 										placeholder="비밀번호를 확인해주세요.">
 										<div class="check_font" id="mempw2check"></div></td>
 								</tr>
 
 								<tr>
 									<th><span>닉네임</span></th>
-									<td><input type="text" name="memNick" id="memnick" placeholder="닉네임"> <span id="msg_nick" class="display_none"></span>
+									<td><input type="text" name="memNick" id="memNick" placeholder="닉네임"> <span id="msg_nick" class="display_none"></span>
 										<div class="check_font" id="nickcheck"></div>
 									</td>
 								</tr>
 
 								<tr>
 									<th><span>휴대폰 번호</span></th>
-									<td><input type="text" name="memPhone" id="memphone" placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요.">
+									<td><input type="text" name="memPhone" id="memPhone" placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요.">
 										<span id="msg_phone" class="display_none"></span>
 										<div class="check_font" id="phonecheck"></div>
 									</td>
@@ -83,7 +82,7 @@
 
 								<tr>
 									<th><span>생년월일</span></th>
-									<td><input type="text" name="memBirth" id="membirth" placeholder="8자리 형식의 숫자로만 입력해주세요.ex_19901010">
+									<td><input type="text" name="memBirth" id="memBirth" placeholder="8자리 형식의 숫자로만 입력해주세요.ex_19901010" >
 										<div class="check_font" id="birthcheck"></div>
 									</td>
 								</tr>
@@ -115,7 +114,7 @@
 					<div id="btnbox">
 						<div class="btn_wrap">
 							<!-- 회원가입 -> DB 저장 // 취소 -> 취소되었습니다! 알림 후 index 수정하기 -->
-							<button type="submit" id="joinsubmit">회원가입</button>
+							<input type="submit" id="joinsubmit" value="회원가입">
 						</div>
 						<div class="btn_wrap2">
 							<a href="javascript:history.back()">취소</a>
@@ -134,22 +133,29 @@
 
 
 <script>
-	$('#joinsubmit').on('click', function(event){
+	$('#joinsubmit').click(function(event){
 		/* 이벤트막음 */
-		event.preventDefault();   
-		var form = $('#joinForm')[0];
-		console.log(form);
-		var data = new FormData(form);
-		console.log(data);
+		event.preventDefault();
+		
+		var form = $('#file')[0].files[0]
+		var formData = new FormData();
+		formData.append('memEmail', $('#memEmail').val());
+		formData.append('memPw', $('#memPw').val());
+		formData.append('memName', $('#memName').val());
+		formData.append('memNick', $('#memNick').val());
+		formData.append('memBirth', $('#memBirth').val());
+		formData.append('memPhone', $('#memPhone').val());
+		formData.append('memGender', $('input[name="memGender"]:checked').val());
+		formData.append('memPhoto', form);
+		
 		// 회원가입 From Action 데이타
 		$.ajax({
-			type : 'POST',
-			enctype: 'multipart/form-data',
 			url : '<c:url value="/member/join"/>',
-			dataType : 'json',
-			data : data,
-			processData: false,    
-	        contentType: false,      
+			type : 'POST',
+			data : formData,
+			enctype : 'multipart/form-data',
+			processData: false,
+	        contentType: false,
 	        cache: false,
 			success : function(e){
 				console.log(e);
@@ -160,12 +166,9 @@
 				} else {
 					
 				} */
-				
 			}
 		});
 	});
-
-
 
 	//등록 이미지 등록 미리보기
 	function readInputFile(input) {
@@ -177,7 +180,6 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	 
 	$(".profilebtn").on('change', function(){
 	    readInputFile(this);
 	});
@@ -185,7 +187,7 @@
 
 
 	//모든 공백 체크 정규식
-	var empJ = /\s/g;
+	/* var empJ = /\s/g;
 
 	// 이름, 이메일, 비밀번호, 비밀번호 확인, 닉네임, 휴대폰 번호, 생일, 성별 순
 	
@@ -407,7 +409,7 @@
 			$('#nickcheck').css('color', 'red');
 		}
 		error : console.log('닉 실패');
-	});	
+	});	 */
 		
 </script>
 <!-- alert('입력해주신 이메일로 인증 메일이 발송되었습니다. 이메일 인증을 완료해주세요.') -->

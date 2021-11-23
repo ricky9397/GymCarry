@@ -1,7 +1,9 @@
 package com.project.gymcarry.member;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberVO {
-	
+	private int memIdx;				// 시퀀스
 	private String memEmail;		// 이메일(아이디)
 	private String memPw;			// 패스워드
 	private String memName;			// 이름
@@ -9,10 +11,28 @@ public class MemberVO {
 	private String memPhone;		// 폰번호
 	private int memBirth;			// 생일
 	private String memGender;		// 성별
-	private String memPhoto; // 프로필사진
+	private String memPhotos; // 프로필사진
+	private MultipartFile memPhoto;
 	
-	public MemberVO() {}
-	
+	public MemberVO(int memIdx, String memEmail, String memPw, String memName, String memNick, String memPhone,
+			int memBirth, String memGender, String memPhotos, MultipartFile memPhoto) {
+		this.memIdx = memIdx;
+		this.memEmail = memEmail;
+		this.memPw = memPw;
+		this.memName = memName;
+		this.memNick = memNick;
+		this.memPhone = memPhone;
+		this.memBirth = memBirth;
+		this.memGender = memGender;
+		this.memPhotos = memPhotos;
+		this.memPhoto = memPhoto;
+	}
+	public int getMemIdx() {
+		return memIdx;
+	}
+	public void setMemIdx(int memIdx) {
+		this.memIdx = memIdx;
+	}
 	public String getMemEmail() {
 		return memEmail;
 	}
@@ -55,10 +75,17 @@ public class MemberVO {
 	public void setMemGender(String memGender) {
 		this.memGender = memGender;
 	}
-	public String getMemPhoto() {
+	public String getMemPhotos() {
+		return memPhotos;
+	}
+	public void setMemPhotos(String memPhotos) {
+		this.memPhotos = memPhotos;
+	}
+	public MultipartFile getMemPhoto() {
 		return memPhoto;
 	}
-	public void setMemPhoto(String memPhoto) {
+	public void setMemPhoto(MultipartFile memPhoto) {
 		this.memPhoto = memPhoto;
 	}
+	
 }

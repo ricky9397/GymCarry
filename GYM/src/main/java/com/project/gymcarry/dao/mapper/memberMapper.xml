@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.project.gymcarry.dao.MemberDao">
 
 	<!-- 멤버회원가입 -->
-	<insert id="insertMemberJoin" parameterType="com.project.gymcarry.member.MemberVO" >
+	<!-- <insert id="insertMemberJoin" parameterType="com.project.gymcarry.member.MemberVO" >
 		INSERT 
 		  INTO 
 		MEMBER ( MEMEMAIL, 
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 #{memBirth},
 				 #{memGender},
 				 #{memPhoto}, )
-	</insert>
+	</insert> -->
 
 
 	<!-- 캐리회원가입 -->
