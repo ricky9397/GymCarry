@@ -30,6 +30,9 @@ public class MemberJoinController {
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Autowired
+	private CommPhotoVO commPhotoVO;
+	
 	@GetMapping("member/join")
 	public String memberJoinForm() {
 		return "member/joinForm";
@@ -37,13 +40,14 @@ public class MemberJoinController {
 
 	@PostMapping("member/join")
 	@ResponseBody
-	public String memberJoin(MemberVO member, MultipartHttpServletRequest multiRequest, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
+	public String memberJoin(MemberVO member,@RequestParam("memPhoto") CommPhotoVO photo, HttpServletRequest request) throws Exception {
+		
+		member.setMemPhoto(photo.getMemPhoto().getOriginalFilename());
+		
 		// 비밀번호 암호화(SHA256)
 		String encryPassword = SHA256.encrypt(member.getMemPw());
 		member.setMemPw(encryPassword);
-		
+
 		// 멤버 회원가입 성공
 		int result = memberService.insertMemberJoin(member, request);
 

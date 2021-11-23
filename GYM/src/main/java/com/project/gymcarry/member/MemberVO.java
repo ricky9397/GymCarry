@@ -1,7 +1,5 @@
 package com.project.gymcarry.member;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class MemberVO {
 	private int memIdx;				// 시퀀스
 	private String memEmail;		// 이메일(아이디)
@@ -11,11 +9,11 @@ public class MemberVO {
 	private String memPhone;		// 폰번호
 	private int memBirth;			// 생일
 	private String memGender;		// 성별
-	private String memPhotos; // 프로필사진
-	private MultipartFile memPhoto;
-	
+	private String memPhoto; // 프로필사진
+	public MemberVO() {
+	}
 	public MemberVO(int memIdx, String memEmail, String memPw, String memName, String memNick, String memPhone,
-			int memBirth, String memGender, String memPhotos, MultipartFile memPhoto) {
+			int memBirth, String memGender, String memPhoto) {
 		this.memIdx = memIdx;
 		this.memEmail = memEmail;
 		this.memPw = memPw;
@@ -24,7 +22,6 @@ public class MemberVO {
 		this.memPhone = memPhone;
 		this.memBirth = memBirth;
 		this.memGender = memGender;
-		this.memPhotos = memPhotos;
 		this.memPhoto = memPhoto;
 	}
 	public int getMemIdx() {
@@ -75,16 +72,10 @@ public class MemberVO {
 	public void setMemGender(String memGender) {
 		this.memGender = memGender;
 	}
-	public String getMemPhotos() {
-		return memPhotos;
-	}
-	public void setMemPhotos(String memPhotos) {
-		this.memPhotos = memPhotos;
-	}
-	public MultipartFile getMemPhoto() {
+	public String getMemPhoto() {
 		return memPhoto;
 	}
-	public void setMemPhoto(MultipartFile memPhoto) {
+	public void setMemPhoto(String memPhoto) {
 		this.memPhoto = memPhoto;
 	}
 	
