@@ -135,7 +135,7 @@
 <script>
 	$('#joinsubmit').click(function(event){
 		/* 이벤트막음 */
-		event.preventDefault();
+		//event.preventDefault();
 		
 		var form = $('#file')[0].files[0]
 		var formData = new FormData();
@@ -157,15 +157,13 @@
 			processData: false,
 	        contentType: false,
 	        cache: false,
-			success : function(e){
-				console.log(e);
-				/* if(e == 0){
-					alert('회원가입 실패 했습니다.');	
-				} else if(e == 1){
-					alert('회원가입 완료 되었습니다.');
+			success : function(data){
+				if(data == 0){
+					alert('회원가입이 안되었습니다. 다시 시도해 주세요.');	
 				} else {
-					
-				} */
+					alert('회원가입 되셨습니다.');
+					location.href = '<c:url value="/member/memberLogin">';
+				} 
 			}
 		});
 	});
@@ -184,8 +182,23 @@
 	    readInputFile(this);
 	});
 
-
-
+	
+	// 회원가입 정규표현식
+	/* 이메일  : test@naver.com*/
+	var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	/* 이름 : 영어, 한글로만 2~6글자이내 */
+	var nameReg = /^[가-힣a-zA-Z]{2,6}$/;
+	/* 비밀번호 : 영문(소,대,특수문자 포함 8자이상 16자이하) */
+	var pwReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/;
+	/* 휴대폰번호  : 010필수, (-)없이 8숫자 */
+	var phoneReg = /^010([0-9]{8})$/;
+	/* 생년월일 : 19880630 숫자만 8자 */
+	var birthJ = /^[0-9]{8}$/;
+	/* 닉네임 : 한글 또는 영어 2~6글자 */
+	var nickJ = /^[가-힣a-zA-Z]{2,6}$/;
+	
+	
+	
 	//모든 공백 체크 정규식
 	/* var empJ = /\s/g;
 
@@ -207,16 +220,16 @@
 	
 	// 이메일 검사 정규식 : 이메일 형식(ㅇㅇㅇ@ㅇㅇㅇ.ㅇㅇ)
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	$("#mememail").focusout(function() {
-		if (mailJ.test($('#mememail').val())) {
-				console.log(mailJ.test($('#mememail').val()));
+	$("#memEmail").focusout(function() {
+		if (mailJ.test($('#memEmail').val())) {
+				console.log(mailJ.test($('#memEmail').val()));
 				$("#emailcheck").text('');
 		// 이메일 이맞으면 ajax 실행		
 		$.ajax({
 			type : 'POST',
 			url : '<c:url value="/member/emailCheck"/>',
 			data : { 
-				mememail : $(this).val()
+				memEmail : $(this).val()
 			},
 			success : function(data) {
 				if(data == 0){
@@ -267,7 +280,6 @@
 	
 	// 휴대폰 번호
 	// 휴대폰 번호 정규식 : 010(필수)+ 숫자로만 8글자
-	var phoneJ = /^010([0-9]{8})$/;
 	$('#memphone').focusout(function(){
 		if(phoneJ.test($('#memphone').val())){
 			console.log(phoneJ.test($('#memphone').val()));
@@ -302,7 +314,6 @@
 	
 	// 생년월일
 	// 생일 정규식 : 숫자로만 8글자 
-	var birthJ = /^[0-9]{8}$/;
 	$('#membirth').focusout(function(){
 		var dateStr = $('#membirth').val();		
 	    var year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
