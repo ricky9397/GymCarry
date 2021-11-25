@@ -25,7 +25,7 @@
 	<div class="wrap wd668">
 		<div class="form_txtInput">
 
-			<form action="<c:url value="/member/memberLogin"/>" method="post">
+			<form>
 				<h1 class="sub_tit_txt">회원 로그인</h1>
 				<div class="login_form">
 				
@@ -35,7 +35,7 @@
 							<label id="cate"><grid>이메일</grid></label>
 						</div>
 						
-						<input type="text" id="into" name="mememail">
+						<input type="text" id="memEmail" name="memEmail">
 						<div class="check_font" id="emailcheck" style=float:left></div>
 					</div>
 
@@ -44,7 +44,7 @@
 							<label id="cate"><grid>비밀번호</grid></label>
 						</div>
 						
-						<input type="password" id="into" name="mempw">
+						<input type="password" id="memPw" name="memPw">
 						<div class="check_font" id="pwcheck"></div>
 					</div>
 
@@ -91,25 +91,29 @@
 	</div>
 	<!-- content E-->
 
-
 <%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 </body>
 
 <script>
-	
+	// 로그인 submit 버튼 클릭 이벤트
 	$('#loginbtn').click(function(){
-		var mem_email = $('memEmail').val();
-		var mem_pw = $('memPw').val();
+		/* 이벤트막음 */
+		event.preventDefault();
+		var data = {
+				memEmail : $('#memEmail').val(),
+				memPw : $('#memPw').val()
+		}
+		/* 로그인 아이디 비밀번호 체크 ajax */
 		$.ajax({
 			type : 'POST' ,
 			url : '<c:url value="/member/memberLogin"/>',
-			data : { 
-				memEmail : mem_email,
-				memPw : mem_pw
-			},
+			data : data,
 			success : function(data){
-				console.log(mem_email);
-				console.log(mem_pw);
+				if(data == 0){
+					alert('아이디 또는 비밀번호가 다릅니다.');
+				} else {
+					window.location.href = '<c:url value="/index"/>';
+				}
 			}
 		});
 	});
@@ -119,6 +123,7 @@
 
 
 <script>
+
 $(document).ready(function(){
 	 
     // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.

@@ -1,11 +1,10 @@
 package com.project.gymcarry.member.service;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import com.project.gymcarry.member.MemberDto;
 import com.project.gymcarry.member.MemberVO;
 
 @Service
-public class MemberJoinServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private SqlSessionTemplate template;
@@ -121,6 +120,24 @@ public class MemberJoinServiceImpl implements MemberService {
 			member.setMemPhotos("profile2.png");
 		}
 		return dao.insertMemberJoin(member);
+	}
+
+	/** select 맴버 일반 로그인  */
+	@Override
+	public int selectMemberLogin(String id, String password, HttpSession session) throws Exception {
+		dao = template.getMapper(MemberDao.class);
+		int result = 0;
+		MemberVO vo = dao.selectMemberLogin(id, password);
+		if(vo != null) {
+			// 로그인처리 session
+			session.setAttribute("loginSession", vo);
+			// 채팅 닉네임 값 세션저장
+			session.setAttribute("chatSession", vo.getMemNick());
+			result = 1;
+		} else {
+			result = 0;
+		}
+		return result;
 	}
 
 }

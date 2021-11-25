@@ -20,10 +20,6 @@ public class LoginService {
 	// 멤버 로그인
 	public SessionDto memberLogin(String id, String pw) {
 		dao = template.getMapper(MemberDao.class);
-		System.out.println("로그인 서비스 : "+id);
-		System.out.println("로그인 서비스 : "+pw);
-		System.out.println("로그인 서비스 : "+dao.memberLogin(id, pw));
-
 		return dao.memberLogin(id, pw);
 	}
 	
@@ -69,6 +65,7 @@ public class LoginService {
 		dao = template.getMapper(MemberDao.class);
 		return dao.updateKakaoJoin(memberDto);
 	}
+
 	
 
 

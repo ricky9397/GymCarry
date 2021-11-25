@@ -39,12 +39,6 @@
 							</colgroup>
 							
 							<tbody>
-								<tr>
-									<th><span>이름</span></th>
-									<td><input type="text" name="memName" id="memName" placeholder="이름" required />
-										<div class="check_font" id="namecheck"></div></td>
-								</tr>
-
 								<tr class="email">
 									<th><span>이메일</span></th>
 									<td><input type="text" name="memEmail" id="memEmail" placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다." required>
@@ -64,7 +58,14 @@
 										placeholder="비밀번호를 확인해주세요.">
 										<div class="check_font" id="mempw2check"></div></td>
 								</tr>
-
+									
+								<tr>
+									<th><span>이름</span></th>
+									<td><input type="text" name="memName" id="memName" placeholder="이름" required />
+										<div class="check_font" id="namecheck"></div></td>
+								</tr>	
+									
+									
 								<tr>
 									<th><span>닉네임</span></th>
 									<td><input type="text" name="memNick" id="memNick" placeholder="닉네임"> <span id="msg_nick" class="display_none"></span>
@@ -135,7 +136,7 @@
 <script>
 	$('#joinsubmit').click(function(event){
 		/* 이벤트막음 */
-		//event.preventDefault();
+		event.preventDefault();
 		
 		var form = $('#file')[0].files[0]
 		var formData = new FormData();
@@ -158,11 +159,12 @@
 	        contentType: false,
 	        cache: false,
 			success : function(data){
+				console.log(data);
 				if(data == 0){
 					alert('회원가입이 안되었습니다. 다시 시도해 주세요.');	
 				} else {
 					alert('회원가입 되셨습니다.');
-					location.href = '<c:url value="/member/memberLogin">';
+					window.location.href = '<c:url value="/member/login"/>';
 				} 
 			}
 		});
@@ -184,6 +186,8 @@
 
 	
 	// 회원가입 정규표현식
+	//모든 공백 체크 정규식
+	var empJ = /\s/g;
 	/* 이메일  : test@naver.com*/
 	var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	/* 이름 : 영어, 한글로만 2~6글자이내 */
@@ -193,129 +197,110 @@
 	/* 휴대폰번호  : 010필수, (-)없이 8숫자 */
 	var phoneReg = /^010([0-9]{8})$/;
 	/* 생년월일 : 19880630 숫자만 8자 */
-	var birthJ = /^[0-9]{8}$/;
+	var birthReg = /^[0-9]{8}$/;
 	/* 닉네임 : 한글 또는 영어 2~6글자 */
-	var nickJ = /^[가-힣a-zA-Z]{2,6}$/;
+	var nickReg = /^[가-힣a-zA-Z]{2,6}$/;
 	
-	
-	
-	//모든 공백 체크 정규식
-	/* var empJ = /\s/g;
-
-	// 이름, 이메일, 비밀번호, 비밀번호 확인, 닉네임, 휴대폰 번호, 생일, 성별 순
-	
-	// 이름 정규식 : 영어, 한글로만 2~6글자 이내 
-	var nameJ = /^[가-힣a-zA-Z]{2,6}$/;
-	$("#memname").focusout(function() {
-		if (nameJ.test($('#memname').val())) {
-				console.log(nameJ.test($('#memname').val()));
-				$("#namecheck").text('');
-		} else {
-			$('#namecheck').text('2~6글자의 한글, 영어만 사용 가능합니다.');
-			$('#namecheck').css('color', 'red');
-		}
-		error : console.log('이름 실패');
-	});
-	
-	
-	// 이메일 검사 정규식 : 이메일 형식(ㅇㅇㅇ@ㅇㅇㅇ.ㅇㅇ)
-	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	$("#memEmail").focusout(function() {
-		if (mailJ.test($('#memEmail').val())) {
-				console.log(mailJ.test($('#memEmail').val()));
-				$("#emailcheck").text('');
-		// 이메일 이맞으면 ajax 실행		
-		$.ajax({
-			type : 'POST',
-			url : '<c:url value="/member/emailCheck"/>',
-			data : { 
-				memEmail : $(this).val()
-			},
-			success : function(data) {
-				if(data == 0){
-					$('#msg').html('사용가능');
-					$('#msg').addClass('color_blue');
-					$('#msg').removeClass('display_none');
-				} else {
-					$('#msg').html('사용 불가능');
-					$('#msg').addClass('color_red');
-					$('#msg').removeClass('display_none');
-					$('#mememail').val('');
+	/* 이메일 */
+	$('#memEmail').focusout(function(){
+		if(emailReg.test($(this).val())){
+			$('#emailcheck').text('');
+			
+			$.ajax({
+				type : 'POST',
+				url : '<c:url value="/member/emailCheck"/>',
+				data : { 
+					memEmail : $(this).val()
+				},
+				success : function(data) {
+					if(data == 0){
+						$('#msg').html('사용가능');
+						$('#msg').removeClass('color_red');
+						$('#msg').addClass('color_blue');
+						$('#msg').removeClass('display_none');
+					} else {
+						$('#msg').html('중복이메일 입니다.');
+						$('#msg').addClass('color_red');
+						$('#msg').removeClass('display_none');
+						$('#memEmail').val('');
+					}
 				}
-			}
-		});
-				
+			});
+			
 		} else {
+			$('#msg').text('');
 			$('#emailcheck').text('이메일 형식으로 입력해주세요.');
 			$('#emailcheck').css('color', 'red');
 		}
-		error : console.log('이메일 실패');
 	});
 	
-	
-	// 비밀번호 정규식 : 영어 대소문자, 숫자로 4~15글자 이내 
-	var pwJ = /^[A-Za-z0-9]{4,15}$/;
-	$("#mempw").focusout(function() {
-		if (pwJ.test($('#mempw').val())) {
-				console.log(pwJ.test($('#mempw').val()));
+	/* 비밀번호 */
+	$("#memPw").focusout(function() {
+		if (pwReg.test($(this).val())) {
 				$("#pwcheck").text('');
 		} else {
-			$('#pwcheck').text('영어 대, 소문자, 숫자로  4~15글자로 작성해주세요 .');
+			$('#pwcheck').text('영어 대,소문자,특수문자포함  8~16글자로 작성해주세요 .');
 			$('#pwcheck').css('color', 'red');
 		}
-		error : console.log('비밀번호 실패');
 	});
 	
-	// 비밀번호 확인 
-	$("#mempw2").focusout(function() {
-		if ($('#mempw2').val() != $('#mempw').val()) {
-				console.log($('#mempw2').val(),$('#mempw').val());
+	/* 비밀번호 확인  */
+	$("#memPw2").focusout(function() {
+		if ($(this).val() != $('#memPw').val()) {
 				$("#pwcheck").text('비밀번호가 다릅니다. 다시 입력해주세요.');
 				$('#pwcheck').css('color', 'red');
 		} else {
 			$('#pwcheck').text('');
 		} 
-		error : console.log('비밀번호 확인 실패');
 	});
 	
-	// 휴대폰 번호
-	// 휴대폰 번호 정규식 : 010(필수)+ 숫자로만 8글자
-	$('#memphone').focusout(function(){
-		if(phoneJ.test($('#memphone').val())){
-			console.log(phoneJ.test($('#memphone').val()));
+	/* 이름 */
+	$("#memName").focusout(function() {
+		if (nameReg.test($(this).val())) {
+				$("#namecheck").text('');
+		} else {
+			$('#namecheck').text('2~6글자의 한글, 영어만 사용 가능합니다.');
+			$('#namecheck').css('color', 'red');
+		}
+	});
+	
+	/* 휴대폰 번호 */
+	$('#memPhone').focusout(function(){
+		if(phoneReg.test($(this).val())){
 			$("#phonecheck").text('');
+			
 			// 번호가 맞으면 ajax 실행
 			$.ajax({
 				type : 'POST',
 				url : '<c:url value="/member/phoneCheck"/>',
 				data : { 
-					memphone : $(this).val()
+					memPhone : $(this).val()
 				},
 				success : function(data) {
 					if(data == 0){
 						$('#msg_phone').html('사용가능');
+						$('#msg_phone').removeClass('color_red');
 						$('#msg_phone').addClass('color_blue');
 						$('#msg_phone').removeClass('display_none');
 					} else {
 						$('#msg_phone').html('사용 불가능');
 						$('#msg_phone').addClass('color_red');
 						$('#msg_phone').removeClass('display_none');
-						$('#memphone').val('');
+						$('#memPhone').val('');
 					}
 				}
 			});
+			
 		} else {
+			$('#msg_phone').text('');
 			$('#phonecheck').text('휴대폰번호를 확인해주세요.');
 			$('#phonecheck').css('color', 'red');
 		}
-		error : console.log('휴대폰 번호 실패');
 	});
 	
-	
-	// 생년월일
-	// 생일 정규식 : 숫자로만 8글자 
-	$('#membirth').focusout(function(){
-		var dateStr = $('#membirth').val();		
+	/* 생년월일 */
+	$('#memBirth').focusout(function(){
+		var dateStr = $(this).val();		
 	    var year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
 	    var month = Number(dateStr.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
 	    var day = Number(dateStr.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
@@ -373,73 +358,52 @@
 	    
 		}); //End of method /*
 	
-	// 성별 
-	$(document).ready(function(){
-		$('#gendercheck').focusout(function(){
-			invalidItem();
-		});
-		function invalidItem(){
-			if($("input[name=memgender]:radio:checked").length < 1){
-				$('#gendercheck').text('성별을 선택해주세요.');
-				$('#gendercheck').css('color', 'red');  
-			} else {
-				$('#gendercheck').text('');
-			}
-		}
+	/* 성별  */
+	$('#gendercheck').focusout(function(){
+		invalidItem();
 	});
-
-	var nickJ = /^[가-힣a-zA-Z]{2,6}$/;
-	$("#memnick").focusout(function() {
-		if (nickJ.test($('#memnick').val())) {
-				console.log(nickJ.test($('#memnick').val()));
+	function invalidItem(){
+		if($("input[name=memGender]:radio:checked").length < 1){
+			$('#gendercheck').text('성별을 선택해주세요.');
+			$('#gendercheck').css('color', 'red');  
+		} else {
+			$('#gendercheck').text('');
+		}
+	}
+	
+	/* 닉네임  */
+	$("#memNick").focusout(function() {
+		if (nickReg.test($(this).val())) {
 				$("#nickcheck").text('');
+				
 				// 닉네임이맞으면 ajax 실행
 				$.ajax({
 					type : 'POST',
 					url : '<c:url value="/member/nickCheck"/>',
 					data : { 
-						memnick : $(this).val()
+						memNick : $(this).val()
 					},
 					success : function(data) {
 						if(data == 0){
 							$('#msg_nick').html('사용가능');
+							$('#msg_nick').removeClass('color_red');
 							$('#msg_nick').addClass('color_blue');
 							$('#msg_nick').removeClass('display_none');
 						} else {
 							$('#msg_nick').html('사용 불가능');
 							$('#msg_nick').addClass('color_red');
 							$('#msg_nick').removeClass('display_none');
-							$('#meX1mnick').val('');
+							$('#memNick').val('');
 						}
-						
 					}
 				});
-				
 		} else {
+			$('#msg_nick').text('');
 			$('#nickcheck').text('2~6글자의 한글, 영어만 사용 가능합니다.');
 			$('#nickcheck').css('color', 'red');
 		}
-		error : console.log('닉 실패');
-	});	 */
+	});	 
 		
-</script>
-<!-- alert('입력해주신 이메일로 인증 메일이 발송되었습니다. 이메일 인증을 완료해주세요.') -->
-
-<!-- 회원가입 이메일,닉네임,핸드폰 중복체크 ajax -->
-<script>
-$('#mememail, #memnick, #memphone').focusin(function() {
-	$('#msg').addClass('display_none');
-	$('#msg').removeClass('color_blue');
-	$('#msg').removeClass('color_red');
-	$('#msg').val('');
-	$('#msg_nick').addClass('display_none');
-	$('#msg_nick').removeClass('color_blue');
-	$('#msg_nick').removeClass('color_red');
-	$('#msg_phone').addClass('display_none');
-	$('#msg_phone').removeClass('color_blue');
-	$('#msg_phone').removeClass('color_red');
-});
-	
 </script>
 
 </html>

@@ -1,7 +1,5 @@
 package com.project.gymcarry.dao;
 
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
 
 import com.project.gymcarry.carry.CarryDto;
@@ -88,5 +86,14 @@ public interface MemberDao {
 	 * @throws Exception
 	 */
 	int insertMemberJoin(MemberVO member) throws Exception;
+
+	/**
+	 * select 맴버 일반로그인 
+	 * @param id
+	 * @param password
+	 * @return
+	 * @throws Exception
+	 */
+	MemberVO selectMemberLogin(String id, String password) throws Exception;
 
 }

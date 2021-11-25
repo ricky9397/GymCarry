@@ -1,10 +1,6 @@
 package com.project.gymcarry.member.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,90 +14,68 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.gymcarry.common.SHA256;
 import com.project.gymcarry.member.MemberDto;
+import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.SessionDto;
 import com.project.gymcarry.member.service.LoginService;
+import com.project.gymcarry.member.service.MemberService;
 
 @Controller
-public class LoginController {
+public class MemberController {
 
 	@Autowired
 	private LoginService loginService;
 
 	@Autowired
+	private MemberService memberService;
+
+	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@GetMapping("member/login")
-	public String loginForm() {
-		return "member/loginForm";
+
+	/**
+	 * 맴버 회원가입 insert
+	 * 
+	 * @param member
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("member/join")
+	@ResponseBody
+	public int memberJoin(MemberVO member, HttpServletRequest request) throws Exception {
+
+		// 비밀번호 암호화(SHA256)
+		String encryPassword = SHA256.encrypt(member.getMemPw());
+		member.setMemPw(encryPassword);
+		// 인증메일 보내기 메소드
+		// String result2 =
+		// mailsenderservice.send_mail(member.getMemEmail(),memberDto.getMemname());
+		return memberService.insertMemberJoin(member, request);
 	}
 
 	// 로그인 세션 저장
+	/**
+	 * select 맴버 일반 로그인
+	 * @param id
+	 * @param pw
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/member/memberLogin")
-	public String login(@RequestParam("memEmail") String id, @RequestParam("memPw") String pw,
-			MemberDto memberjoinkeycheck, SessionDto memberLogin, HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws IOException {
-
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-
+	@ResponseBody
+	public int login(@RequestParam("memEmail") String id, @RequestParam("memPw") String pw, HttpSession session)
+			throws Exception {
+		// 비밀번호 암호화
 		String password = SHA256.encrypt(pw);
 		
-		MemberDto memberDto = loginService.memberjoinkeycheck(id, password);
-
-		if (memberDto != null) {
-
-			if (memberDto.getJoinkey_status().equals("1")) {
-
-				SessionDto sessionDto = new SessionDto();
-				sessionDto.setMemidx(memberDto.getMemidx());
-				sessionDto.setMemname(memberDto.getMemname());
-				sessionDto.setMemnick(memberDto.getMemnick());
-				String chatNick = sessionDto.getMemnick();
-
-				out.println("<script>");
-				out.println("alert('로그인되었습니다!'); location.href='/gym/index';");
-				out.println("</script>");
-				out.close();
-
-				System.out.println("로그인 성공");
-				session.setAttribute("loginSession", sessionDto);
-				session.setAttribute("chatSession", chatNick);
-
-				System.out.println("sessionDto : " + sessionDto);
-				System.out.println("chatNick : " + chatNick);
-
-				return "redirect:/index";
-
-			} else {
-
-				out.println("<script>");
-				out.println("alert('[!] 이메일 인증 후 로그인해주세요.');");
-				out.println("history.go(-1);");
-				out.println("</script>");
-				out.close();
-				System.out.println("이메일 미인증 상태!");
-			}
-
-		} else {
-
-			out.println("<script>");
-			out.println("alert('[!] 이메일 혹은 비밀번호를 확인해주세요.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			System.out.println("입력 오류 상태!");
-
-		}
-
-		return "redirect:/index";
+		return memberService.selectMemberLogin(id, password, session);
 	}
-
+	
 	// 로그아웃 세션 삭제
 	@GetMapping("member/logOut")
 	public String memberLogOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		System.out.println("로그아웃");
 		return "redirect:/index";
 	}
 
@@ -131,10 +105,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/member/kakaojoininput")
-	public String inputKakaoJoin(MemberDto memberDto,HttpSession session) {
+	public String inputKakaoJoin(MemberDto memberDto, HttpSession session) {
 		System.out.println(memberDto);
 		int result = loginService.updateKakaoJoin(memberDto);
-		if(result == 1) {
+		if (result == 1) {
 			SessionDto sessionDto = loginService.memberLoginCheck(memberDto.getSnsjoinid());
 			String chatNick = sessionDto.getMemnick();
 			session.setAttribute("loginSession", sessionDto);

@@ -16,7 +16,6 @@ import com.project.gymcarry.admin.ContentDto;
 import com.project.gymcarry.admin.service.AdminBoardService;
 
 @Controller
-@RequestMapping
 public class AdminBoardController {
 
 		@Autowired

@@ -17,10 +17,10 @@
 				<c:when test="${empty loginSession}">
 					<li><a href="<c:url value="/member/login"/>">MY BODY</a></li>
 				</c:when>
-				<c:when test="${loginSession.cridx ne 0}">
+				<%-- <c:when test="${loginSession.cridx ne 0}">
 					<li><a href="<c:url value="/mypage/carrymypage"/>">MY PAGE</a></li>
-				</c:when>
-				<c:when test="${loginSession.memidx ne 0}">
+				</c:when> --%>
+				<c:when test="${loginSession.memIdx ne 0}">
 					<li><a href="<c:url value="/mypage/mypage"/>">MY BODY</a></li>
 				</c:when>
 			</c:choose>
@@ -87,14 +87,13 @@
 
 <script>
 	/* 메세지 알림기능 */
-	var session_memnick = '${loginSession.memnick}'
-	var session_crnick = '${loginSession.crnick}'
+	var session_memnick = '${loginSession.memNick}';
+	
 	<c:if test="${loginSession ne null}">
 	var socket = new SockJS("<c:url value='/echo'/>");
 	socket.onmessage = function(message) {
 		var data = message.data;
 		var jsonData = JSON.parse(data);
-		console.log(jsonData);
 		if (jsonData.to == session_memnick) {
 			toastr.options.escapeHtml = true;
 			toastr.options.closeButton = true;
@@ -120,4 +119,6 @@
 		}
 	};
 	</c:if>
+	
 </script>
+/* var session_crnick = '${loginSession.crnick}'; */

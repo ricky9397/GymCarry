@@ -59,12 +59,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 멤버 회원가입시 닉네임 중복 검사 -->
 	<select id="memberNickCheck" parameterType="String" resultType="int">
-		select count(*) from member where memnick = #{memnick}
+		SELECT COUNT(*) 
+		  FROM MEMBER 
+		 WHERE MEMNICK = #{memNick}
 	</select>
 	
 	<!-- 멤버 회원가입시 핸드폰 중복 검사 -->
 	<select id="memberPhoneCheck" parameterType="String" resultType="int">
-		select count(*) from member where memphone = #{memphone} 
+		SELECT COUNT(*) 
+		  FROM MEMBER 
+		 WHERE MEMPHONE = #{memPhone} 
 	</select>
 	
 	<!-- 캐리 회원가입시 이메일 중복 검사 -->
@@ -85,9 +89,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 멤버로그인 -->
 	<!-- 로그인값은 멤버 캐리 상관없이 SessionDto로 받아오기 -->
-	<select id="memberLogin" parameterType="String" resultType="com.project.gymcarry.member.SessionDto">
-		select * from member where mememail=#{param1} and
-		mempw=#{param2}
+	<select id="selectMemberLogin" parameterType="String" resultType="com.project.gymcarry.member.MemberVO">
+		SELECT MEMEMAIL,
+			   MEMNAME,
+			   MEMNICK
+			   
+		  FROM MEMBER 
+		 WHERE MEMEMAIL = #{param1} 
+		   AND MEMPW    = #{param2}
 	</select>
 
 	<!-- 캐리로그인 -->

@@ -19,7 +19,6 @@ import com.project.gymcarry.carry.service.CarryInfoService;
 import com.project.gymcarry.place.PlaceDto;
 
 @Controller
-@RequestMapping
 public class CarryDetailController {
 
 	@Autowired
