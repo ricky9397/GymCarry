@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- (1)레이아웃 적용시키는 화면 -->
+	<!-- <definition name="index.*" template="/WEB-INF/views/tiles/layout.jsp">
+    	<put-attribute name="title" value="짐케리" />
+    	<put-attribute name="header" value="" />
+    	<put-attribute name="menu" value="/WEB-INF/views/frame/header.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/*/{1}.jsp" />
+    	<put-attribute name="footer" value="/WEB-INF/views/frame/footer.jsp" />
+	</definition> -->
+	
+	
+	<!-- (1)레이아웃 적용시킨 메인화면 -->
+	<definition name="index.MAIN" template="/WEB-INF/views/tiles/layout.jsp">
+    	<put-attribute name="title" value="짐케리" />
+    	<put-attribute name="header" value="/WEB-INF/views/frame/header.jsp" />
+    	<put-attribute name="menu" value="/WEB-INF/views/frame/menu.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+    	<put-attribute name="footer" value="/WEB-INF/views/frame/footer.jsp" />
+	</definition>
+
+</tiles-definitions>
