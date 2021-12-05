@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="loginLayout" template="/WEB-INF/tiles/loginLayout.jsp">
+        <put-attribute name="meta"          value="/WEB-INF/views/template/common/meta.jsp" />
+        <put-attribute name="style"         value="/WEB-INF/views/template/common/style.jsp" />
+        <put-attribute name="commonScript"  value="/WEB-INF/views/template/common/scripts.jsp" />
+        <put-attribute name="contents" />
+        <put-attribute name="moduleScript" />
+    </definition>
+    
+    
+
+</tiles-definitions>
